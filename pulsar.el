@@ -31,9 +31,11 @@
 ;; takes place when either `pulsar-mode' (buffer-local) or
 ;; `pulsar-global-mode' is enabled.
 ;;
-;; The duration of the highlight is determined by `pulsar-delay'.  How
-;; smooth the effect is depends on `pulsar-iterations'.  While the
-;; applicable face is specified in `pulsar-face'.
+;; The overall duration of the highlight is determined by a combination
+;; of `pulsar-delay' and `pulsar-iterations'.  The latter determines the
+;; number of blinks in a pulse, while the former sets their delay in
+;; seconds before they fade out.  The applicable face is specified in
+;; `pulsar-face'.
 ;;
 ;; To disable the pulse but keep the temporary highlight, set the user
 ;; option `pulsar-pulse' to nil.  The current line will remain
@@ -68,9 +70,7 @@ Extension of `pulse.el'."
 ;;;; User options
 
 (defcustom pulsar-pulse-functions
-  '(isearch-repeat-forward
-    isearch-repeat-backward
-    recenter-top-bottom
+  '(recenter-top-bottom
     move-to-window-line-top-bottom
     reposition-window
     bookmark-jump
@@ -145,14 +145,16 @@ command is invoked."
   :group 'pulsar)
 
 (defcustom pulsar-delay 0.05
-  "Duration in seconds of the active pulse highlight.
-Only applies when `pulsar-pulse' is non-nil."
+  "Delay between increments of a pulse.
+Together with `pulsar-iterations' control the overall duration of
+a pulse.  Only applies when `pulsar-pulse' is non-nil."
   :type 'number
   :group 'pulsar)
 
 (defcustom pulsar-iterations pulse-iterations
   "Number of iterations in a pulse highlight.
-Only applies when `pulsar-pulse' is non-nil."
+Together with `pulsar-delay' control the overall duration of a
+pulse.  Only applies when `pulsar-pulse' is non-nil."
   :type 'number
   :group 'pulsar)
 
@@ -262,10 +264,10 @@ is invoked.  Otherwise use whatever `pulsar-pulse' entails.
 
 With optional FACE, use it instead of `pulsar-face'."
   (let* ((pulse-flag (if no-pulse nil pulsar-pulse))
-	 (pulse-delay pulsar-delay)
-	 (pulse-iterations pulsar-iterations)
-	 (f (if (facep face) face pulsar-face))
-	 (o (make-overlay (pulsar--start) (pulsar--end))))
+         (pulse-delay pulsar-delay)
+         (pulse-iterations pulsar-iterations)
+         (f (if (facep face) face pulsar-face))
+         (o (make-overlay (pulsar--start) (pulsar--end))))
     (overlay-put o 'pulse-delete t)
     (overlay-put o 'window (frame-selected-window))
     (pulse-momentary-highlight-overlay o f)))
@@ -299,7 +301,6 @@ default)."
   "Set up pulsar for each function in `pulsar-pulse-functions'.
 This is a buffer-local mode.  Also check `pulsar-global-mode'."
   :global nil
-  :lighter " -P-"
   (if pulsar-mode
       (add-hook 'post-command-hook #'pulsar--post-command-pulse nil 'local)
     (remove-hook 'post-command-hook #'pulsar--post-command-pulse 'local)))
