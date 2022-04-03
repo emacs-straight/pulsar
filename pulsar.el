@@ -320,7 +320,7 @@ default)."
 ;; rectangular regions).
 (defun pulsar--remove-rectangle-remap ()
   "Remove face remap from rectangle region when appropriate."
-  (when (and rectangle-mark-mode
+  (when (and (bound-and-true-p rectangle-mark-mode)
              (not (eq this-command 'pulsar-highlight-dwim)))
     (pulsar--remove-face-remap)))
 
@@ -332,18 +332,17 @@ default)."
   (add-hook 'deactivate-mark-hook #'pulsar--remove-face-remap nil t))
 
 ;;;###autoload
-(defun pulsar-highlight-dwim (beg end)
+(defun pulsar-highlight-dwim ()
   "Temporarily highlight the current line or active region.
-The region is the space between the BEG and END positions.  The
-region may also be a rectangle.
+The region may also be a rectangle.
 
 For lines, do the same as `pulsar-highlight-line'."
-  (interactive "r")
+  (interactive)
   (cond
-   (rectangle-mark-mode
+   ((bound-and-true-p rectangle-mark-mode)
     (pulsar--highlight-rectangle))
    ((use-region-p)
-    (pulsar--pulse :no-pulse pulsar-highlight-face beg end))
+    (pulsar--pulse :no-pulse pulsar-highlight-face (region-beginning) (region-end)))
    (t
     (pulsar--pulse :no-pulse pulsar-highlight-face))))
 
