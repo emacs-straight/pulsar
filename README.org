@@ -36,6 +36,10 @@ commit, is explicitly marked as such.
 
 Current development target is {{{development-version}}}.
 
++ Homepage: https://protesilaos.com/emacs/pulsar.
++ Git repository: https://git.sr.ht/~protesilaos/pulsar.
++ Mailing list: https://lists.sr.ht/~protesilaos/pulsar.
+
 #+toc: headlines 8 insert TOC here, with eight headline levels
 
 * COPYING
@@ -124,7 +128,7 @@ Luminates, Strictly Absent the Radiation".
 :END:
 #+cindex: Installation instructions
 
-* GNU ELPA package
+** GNU ELPA package
 :PROPERTIES:
 :CUSTOM_ID: h:916cf31a-8f25-472e-9328-9c47522f1dd4
 :END:
