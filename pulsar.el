@@ -6,7 +6,7 @@
 ;; Maintainer: Pulsar Development <~protesilaos/pulsar@lists.sr.ht>
 ;; URL: https://git.sr.ht/~protesilaos/pulsar
 ;; Mailing-List: https://lists.sr.ht/~protesilaos/pulsar
-;; Version: 0.3.1
+;; Version: 0.4.0
 ;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: convenience, pulse, highlight
 
@@ -32,6 +32,11 @@
 ;; defined in the user option `pulsar-pulse-functions' and the effect
 ;; takes place when either `pulsar-mode' (buffer-local) or
 ;; `pulsar-global-mode' is enabled.
+;;
+;; There is no need to add all functions that affect the active window
+;; to the `pulsar-pulse-functions'.  Instead, keep the user option
+;; `pulsar-pulse-on-window-change' in its default non-nil value.  It
+;; will pulse the current line whenever the active window changes.
 ;;
 ;; The overall duration of the highlight is determined by a combination
 ;; of `pulsar-delay' and `pulsar-iterations'.  The latter determines the

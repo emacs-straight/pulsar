@@ -1,27 +1,21 @@
-#+title: pulsar.el: Pulse highlight line on demand or after running select functions
-#+author: Protesilaos Stavrou
-#+email: info@protesilaos.com
-#+language: en
-#+options: ':t toc:nil author:t email:t num:t
-#+startup: content
-
-#+macro: stable-version 0.3.0
-#+macro: release-date 2022-04-08
-#+macro: development-version 0.4.0-dev
-#+macro: file @@texinfo:@file{@@$1@@texinfo:}@@
-#+macro: space @@texinfo:@: @@
-#+macro: kbd @@texinfo:@kbd{@@$1@@texinfo:}@@
-
-#+export_file_name: pulsar.texi
-
-#+texinfo_filename: pulsar.info
-#+texinfo_dir_category: Emacs misc features
-#+texinfo_dir_title: Pulsar: (pulsar)
-#+texinfo_dir_desc: Pulse highlight line on demand or after running select functions
-#+texinfo_header: @set MAINTAINERSITE @uref{https://protesilaos.com,maintainer webpage}
-#+texinfo_header: @set MAINTAINER Protesilaos Stavrou
-#+texinfo_header: @set MAINTAINEREMAIL @email{info@protesilaos.com}
-#+texinfo_header: @set MAINTAINERCONTACT @uref{mailto:info@protesilaos.com,contact the maintainer}
+#+title:                 pulsar.el: Pulse highlight line on demand or after running select functions
+#+author:                Protesilaos Stavrou
+#+email:                 info@protesilaos.com
+#+language:              en
+#+options:               ':t toc:nil author:t email:t num:t
+#+startup:               content
+#+macro:                 stable-version 0.4.0
+#+macro:                 release-date 2022-07-19
+#+macro:                 development-version 0.5.0-dev
+#+export_file_name:      pulsar.texi
+#+texinfo_filename:      pulsar.info
+#+texinfo_dir_category:  Emacs misc features
+#+texinfo_dir_title:     Pulsar: (pulsar)
+#+texinfo_dir_desc:      Pulse highlight line on demand or after running select functions
+#+texinfo_header:        @set MAINTAINERSITE @uref{https://protesilaos.com,maintainer webpage}
+#+texinfo_header:        @set MAINTAINER Protesilaos Stavrou
+#+texinfo_header:        @set MAINTAINEREMAIL @email{info@protesilaos.com}
+#+texinfo_header:        @set MAINTAINERCONTACT @uref{mailto:info@protesilaos.com,contact the maintainer}
 
 #+texinfo: @insertcopying
 
@@ -77,10 +71,9 @@ when either ~pulsar-mode~ (buffer-local) or ~pulsar-global-mode~ is
 enabled.
 
 There is no need to add all functions that affect the active window to
-the ~pulsar-pulse-functions~.  Instead, set the user option
-~pulsar-pulse-on-window-change~ to a non-nil value.  It will pulse the
-current line whenever the active window changes (it is part of
-{{{development-version}}}).
+the ~pulsar-pulse-functions~.  Instead, keep the user option
+~pulsar-pulse-on-window-change~ in its default non-nil value.  It will
+pulse the current line whenever the active window changes.
 
 #+vindex: pulsar-delay
 #+vindex: pulsar-iterations
