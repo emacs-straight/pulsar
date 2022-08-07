@@ -30,9 +30,14 @@ commit, is explicitly marked as such.
 
 Current development target is {{{development-version}}}.
 
-+ Homepage: https://protesilaos.com/emacs/pulsar.
-+ Git repository: https://git.sr.ht/~protesilaos/pulsar.
-+ Mailing list: https://lists.sr.ht/~protesilaos/pulsar.
++ Package name (GNU ELPA): =pulsar=
++ Official manual: <https://protesilaos.com/emacs/pulsar>
++ Change log: <https://protesilaos.com/emacs/pulsar-changelog>
++ Git repo on SourceHut: <https://git.sr.ht/~protesilaos/pulsar>
+  - Mirrors:
+    + GitHub: <https://github.com/protesilaos/pulsar>
+    + GitLab: <https://gitlab.com/protesilaos/pulsar>
++ Mailing list: <https://lists.sr.ht/~protesilaos/pulsar>
 
 #+toc: headlines 8 insert TOC here, with eight headline levels
 
@@ -69,11 +74,6 @@ after a given function is invoked.  The affected functions are defined
 in the user option ~pulsar-pulse-functions~ and the effect takes place
 when either ~pulsar-mode~ (buffer-local) or ~pulsar-global-mode~ is
 enabled.
-
-There is no need to add all functions that affect the active window to
-the ~pulsar-pulse-functions~.  Instead, keep the user option
-~pulsar-pulse-on-window-change~ in its default non-nil value.  It will
-pulse the current line whenever the active window changes.
 
 #+vindex: pulsar-delay
 #+vindex: pulsar-iterations
@@ -114,6 +114,40 @@ Pulsar depends on the built-in ~pulse.el~ library.
 Why the name "pulsar"?  It sounds like "pulse" and is a recognisable
 word.  Though if you need a backronym, consider "Pulsar Unquestionably
 Luminates, Strictly Absent the Radiation".
+
+** Convenience functions
+:PROPERTIES:
+:CUSTOM_ID: h:6ca69953-1a89-4968-a46c-2fa5e57aca9b
+:END:
+
+[ Part of {{{development-version}}} ]
+
+Depending on the user's workflow, there may be a need for differently
+colored pulses.  These are meant to provide an ad-hoc deviation from the
+standard style of the command ~pulsar-pulse-line~ (which is governed by
+the user option ~pulsar-face~).  Pulsar thus provides the following for
+the user's convenience:
+
+#+findex: pulsar-pulse-line-red
+- ~pulsar-pulse-line-red~
+
+#+findex: pulsar-pulse-line-green
+- ~pulsar-pulse-line-green~
+
+#+findex: pulsar-pulse-line-yellow
+- ~pulsar-pulse-line-yellow~
+
+#+findex: pulsar-pulse-line-blue
+- ~pulsar-pulse-line-blue~
+
+#+findex: pulsar-pulse-line-magenta
+- ~pulsar-pulse-line-magenta~
+
+#+findex: pulsar-pulse-line-cyan
+- ~pulsar-pulse-line-cyan~
+
+These can be called with =M-x=, assigned to a hook and/or key binding,
+or be incorporated in custom functions.
 
 * Installation
 :PROPERTIES:
@@ -179,43 +213,10 @@ Remember to read the doc string of each of these variables.
 #+begin_src emacs-lisp
 (require 'pulsar)
 
-(setq pulsar-pulse-functions
-      ;; NOTE 2022-04-09: The commented out functions are from before
-      ;; the introduction of `pulsar-pulse-on-window-change'.  Try that
-      ;; instead.
-      '(recenter-top-bottom
-        move-to-window-line-top-bottom
-        reposition-window
-        ;; bookmark-jump
-        ;; other-window
-        ;; delete-window
-        ;; delete-other-windows
-        forward-page
-        backward-page
-        scroll-up-command
-        scroll-down-command
-        ;; windmove-right
-        ;; windmove-left
-        ;; windmove-up
-        ;; windmove-down
-        ;; windmove-swap-states-right
-        ;; windmove-swap-states-left
-        ;; windmove-swap-states-up
-        ;; windmove-swap-states-down
-        ;; tab-new
-        ;; tab-close
-        ;; tab-next
-        org-next-visible-heading
-        org-previous-visible-heading
-        org-forward-heading-same-level
-        org-backward-heading-same-level
-        outline-backward-same-level
-        outline-forward-same-level
-        outline-next-visible-heading
-        outline-previous-visible-heading
-        outline-up-heading))
+;; Check the default value of `pulsar-pulse-functions'.  That is where
+;; you add more commands that should cause a pulse after they are
+;; invoked
 
-(setq pulsar-pulse-on-window-change t)
 (setq pulsar-pulse t)
 (setq pulsar-delay 0.055)
 (setq pulsar-iterations 10)
@@ -242,6 +243,22 @@ Remember to read the doc string of each of these variables.
 (let ((map global-map))
   (define-key map (kbd "C-c h p") #'pulsar-pulse-line)
   (define-key map (kbd "C-c h h") #'pulsar-highlight-line))
+#+end_src
+
+** Use pulsar with next-error
+:PROPERTIES:
+:CUSTOM_ID: h:0b055c04-fefe-4355-9951-a74689c8d1e5
+:END:
+
+By default, the =n= and =p= keys in Emacs' compilation buffers (e.g. the
+results of a ~grep~ search) produce a highlight for the locus of the
+given match.  Due to how the code is implemented, we cannot use Pulsar's
+standard mechanism to trigger a pulse after the match is highlighted.
+Instead, the user must add this to their configuration in lieu of a
+Pulsar-level solution that "just works":
+
+#+begin_src emacs-lisp
+(add-hook 'next-error-hook #'pulsar-pulse-line)
 #+end_src
 
 * Integration with other packages
@@ -289,7 +306,7 @@ Pulsar is meant to be a collective effort.  Every bit of help matters.
   Mendler, Ivan Popovych, JD Smith.
 
 + Ideas and user feedback :: Mark Barton, Petter Storvik, Rudolf
-  Adamkovič, Toon Claes, and user kb.
+  Adamkovič, Toon Claes, and users djl, kb.
 
 * GNU Free Documentation License
 :PROPERTIES:

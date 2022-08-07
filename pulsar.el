@@ -33,11 +33,6 @@
 ;; takes place when either `pulsar-mode' (buffer-local) or
 ;; `pulsar-global-mode' is enabled.
 ;;
-;; There is no need to add all functions that affect the active window
-;; to the `pulsar-pulse-functions'.  Instead, keep the user option
-;; `pulsar-pulse-on-window-change' in its default non-nil value.  It
-;; will pulse the current line whenever the active window changes.
-;;
 ;; The overall duration of the highlight is determined by a combination
 ;; of `pulsar-delay' and `pulsar-iterations'.  The latter determines the
 ;; number of blinks in a pulse, while the former sets their delay in
@@ -77,30 +72,28 @@ Extension of `pulse.el'."
 ;;;; User options
 
 (defcustom pulsar-pulse-functions
-  ;; NOTE 2022-04-09: The commented out functions are from before the
-  ;; introduction of `pulsar-pulse-on-window-change'.  Try that instead.
   '(recenter-top-bottom
     move-to-window-line-top-bottom
     reposition-window
-    ;; bookmark-jump
-    ;; other-window
-    ;; delete-window
-    ;; delete-other-windows
+    bookmark-jump
+    other-window
+    delete-window
+    delete-other-windows
     forward-page
     backward-page
     scroll-up-command
     scroll-down-command
-    ;; windmove-right
-    ;; windmove-left
-    ;; windmove-up
-    ;; windmove-down
-    ;; windmove-swap-states-right
-    ;; windmove-swap-states-left
-    ;; windmove-swap-states-up
-    ;; windmove-swap-states-down
-    ;; tab-new
-    ;; tab-close
-    ;; tab-next
+    windmove-right
+    windmove-left
+    windmove-up
+    windmove-down
+    windmove-swap-states-right
+    windmove-swap-states-left
+    windmove-swap-states-up
+    windmove-swap-states-down
+    tab-new
+    tab-close
+    tab-next
     org-next-visible-heading
     org-previous-visible-heading
     org-forward-heading-same-level
@@ -111,24 +104,12 @@ Extension of `pulse.el'."
     outline-previous-visible-heading
     outline-up-heading)
   "Functions that `pulsar-pulse-line' after invocation.
-This only takes effect when `pulsar-mode' or `pulsar-global-mode'
-is enabled.
-
-For functions/commands that change the current window, it is
-better to set the user option `pulsar-pulse-on-window-change' to
-non-nil instead of specifying each of them in this list."
+This only takes effect when `pulsar-mode' (buffer-local) or
+`pulsar-global-mode' is enabled."
   :type '(repeat function)
   :group 'pulsar)
 
-(defcustom pulsar-pulse-on-window-change t
-  "When non-nil enable pulsing on every window change.
-This covers all commands or functions that affect the current
-window.  Users who prefer to trigger a pulse only after select
-functions (e.g. only after `other-window') are advised to set
-this variable to nil and update the `pulsar-pulse-functions'
-accordingly."
-  :type 'boolean
-  :group 'pulsar)
+(make-obsolete 'pulsar-pulse-on-window-change nil "0.5.0")
 
 (defcustom pulsar-face 'pulsar-generic
   "Face of the regular pulse line effect (`pulsar-pulse-line').
@@ -321,6 +302,27 @@ default)."
   (interactive)
   (pulsar--pulse :no-pulse pulsar-highlight-face))
 
+;;;;; Convenience functions
+
+;;;###autoload
+(defmacro pulsar-pulse-with-face (name face)
+  "Produce NAME function to `pulsar--pulse' with FACE."
+  (declare (indent function))
+  `(defun ,name ()
+     ,(format "Like `pulsar-pulse-line' but uses the `%s' face.
+The idea with this is to run it in special hooks or contexts
+where you need a different color than what Pulsar normally
+uses (per `pulsar-face')" face)
+     (interactive)
+     (pulsar--pulse nil ',face)))
+
+(pulsar-pulse-with-face pulsar-pulse-line-red pulsar-red)
+(pulsar-pulse-with-face pulsar-pulse-line-green pulsar-green)
+(pulsar-pulse-with-face pulsar-pulse-line-yellow pulsar-yellow)
+(pulsar-pulse-with-face pulsar-pulse-line-blue pulsar-blue)
+(pulsar-pulse-with-face pulsar-pulse-line-magenta pulsar-magenta)
+(pulsar-pulse-with-face pulsar-pulse-line-cyan pulsar-cyan)
+
 ;;;;; Highlight region
 
 (defvar-local pulsar--rectangle-face-cookie nil
@@ -376,11 +378,8 @@ For lines, do the same as `pulsar-highlight-line'."
 This is a buffer-local mode.  Also check `pulsar-global-mode'."
   :global nil
   (if pulsar-mode
-      (progn
-        (add-hook 'post-command-hook #'pulsar--post-command-pulse nil 'local)
-        (add-hook 'window-selection-change-functions #'pulsar--pulse-on-window-change nil 'local))
-    (remove-hook 'post-command-hook #'pulsar--post-command-pulse 'local)
-    (remove-hook 'window-selection-change-functions #'pulsar--pulse-on-window-change 'local)))
+      (add-hook 'post-command-hook #'pulsar--post-command-pulse nil 'local)
+    (remove-hook 'post-command-hook #'pulsar--post-command-pulse 'local)))
 
 (defun pulsar--on ()
   "Enable `pulsar-mode'."
@@ -390,12 +389,6 @@ This is a buffer-local mode.  Also check `pulsar-global-mode'."
 
 ;;;###autoload
 (define-globalized-minor-mode pulsar-global-mode pulsar-mode pulsar--on)
-
-(defun pulsar--pulse-on-window-change (&rest _)
-  "Run `pulsar-pulse-line' on window change."
-  (when (and pulsar-pulse-on-window-change
-             (or pulsar-mode pulsar-global-mode))
-    (pulsar-pulse-line)))
 
 (defun pulsar--post-command-pulse ()
   "Run `pulsar-pulse-line' for `pulsar-pulse-functions'."
@@ -407,26 +400,20 @@ This is a buffer-local mode.  Also check `pulsar-global-mode'."
 
 ;;;; Recentering commands
 
+;;;###autoload
 (defmacro pulsar-recenter (name doc arg)
   "Produce command to pulse and recenter.
 The symbol is NAME, DOC for the doc string, and ARG is passed to
 `recenter'."
   (declare (indent defun))
   `(defun ,name ()
-     ,doc
+     ,(format "Reposition point at the %s of the window and pulse line." doc)
      (interactive)
      (recenter ,arg)
      (pulsar-pulse-line)))
 
-(pulsar-recenter
-  pulsar-recenter-top
-  "Reposition point at the top of the window and pulse line."
-  0)
-
-(pulsar-recenter
-  pulsar-recenter-middle
-  "Reposition point at the center of the window and pulse line."
-  nil)
+(pulsar-recenter pulsar-recenter-top "top" 0)
+(pulsar-recenter pulsar-recenter-middle "center" nil)
 
 ;;;; Reveal contents of Org or Outline headings
 
