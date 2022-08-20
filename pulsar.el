@@ -6,7 +6,7 @@
 ;; Maintainer: Pulsar Development <~protesilaos/pulsar@lists.sr.ht>
 ;; URL: https://git.sr.ht/~protesilaos/pulsar
 ;; Mailing-List: https://lists.sr.ht/~protesilaos/pulsar
-;; Version: 0.4.0
+;; Version: 0.5.0
 ;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: convenience, pulse, highlight
 
@@ -393,7 +393,8 @@ This is a buffer-local mode.  Also check `pulsar-global-mode'."
 (defun pulsar--post-command-pulse ()
   "Run `pulsar-pulse-line' for `pulsar-pulse-functions'."
   (when (and (or pulsar-mode pulsar-global-mode)
-             (memq this-command pulsar-pulse-functions))
+             (or (memq this-command pulsar-pulse-functions)
+                 (memq real-this-command pulsar-pulse-functions)))
     (pulsar-pulse-line)))
 
 (make-obsolete 'pulsar-setup nil "0.3.0")
