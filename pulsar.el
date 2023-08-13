@@ -6,7 +6,7 @@
 ;; Maintainer: Pulsar Development <~protesilaos/pulsar@lists.sr.ht>
 ;; URL: https://git.sr.ht/~protesilaos/pulsar
 ;; Mailing-List: https://lists.sr.ht/~protesilaos/pulsar
-;; Version: 0.5.0
+;; Version: 1.0.0
 ;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: convenience, pulse, highlight
 
@@ -109,6 +109,7 @@ Extension of `pulse.el'."
 This only takes effect when `pulsar-mode' (buffer-local) or
 `pulsar-global-mode' is enabled."
   :type '(repeat function)
+  :package-version '(pulsar . "1.0.0")
   :group 'pulsar)
 
 (make-obsolete 'pulsar-pulse-on-window-change nil "0.5.0")
@@ -128,6 +129,7 @@ background attribute."
                 (face :tag "Magenta style" pulsar-magenta)
                 (face :tag "Cyan style" pulsar-cyan)
                 (face :tag "Other face (must have a background)"))
+  :package-version '(pulsar . "0.2.0")
   :group 'pulsar)
 
 (defcustom pulsar-highlight-face 'pulsar-face
@@ -141,6 +143,7 @@ background attribute."
                         (face :tag "Magenta style" pulsar-magenta)
                         (face :tag "Cyan style" pulsar-cyan)
                         (face :tag "Other face (must have a background)")))
+  :package-version '(pulsar . "0.3.0")
   :group 'pulsar)
 
 (defcustom pulsar-pulse t
@@ -148,6 +151,7 @@ background attribute."
 Otherwise the highlight stays on the current line until another
 command is invoked."
   :type 'boolean
+  :package-version '(pulsar . "0.2.0")
   :group 'pulsar)
 
 (defcustom pulsar-delay 0.05
@@ -155,6 +159,7 @@ command is invoked."
 Together with `pulsar-iterations' control the overall duration of
 a pulse.  Only applies when `pulsar-pulse' is non-nil."
   :type 'number
+  :package-version '(pulsar . "0.1.0")
   :group 'pulsar)
 
 (defcustom pulsar-iterations pulse-iterations
@@ -162,6 +167,7 @@ a pulse.  Only applies when `pulsar-pulse' is non-nil."
 Together with `pulsar-delay' control the overall duration of a
 pulse.  Only applies when `pulsar-pulse' is non-nil."
   :type 'number
+  :package-version '(pulsar . "0.1.0")
   :group 'pulsar)
 
 ;;;; Faces
@@ -252,10 +258,18 @@ pulse.  Only applies when `pulsar-pulse' is non-nil."
     (or (eobp) (eq (point) (point-max)))))
 
 (defun pulsar--start ()
-  "Return appropriate line start."
-  (if (and (pulsar--buffer-end-p) (eq (char-before) ?\n))
-      (line-beginning-position 0)
-    (line-beginning-position)))
+  "Return appropriate line start.
+When in the minibuffer, return the `point-min', which includes
+the text of the prompt.  This way, a pulse will be visible even
+if the minibuffer has no initial text (e.g. `M-x' with the
+default completion setup)."
+  (cond
+   ((minibufferp)
+    (point-min))
+   ((and (pulsar--buffer-end-p) (eq (char-before) ?\n))
+    (line-beginning-position 0))
+   (t
+    (line-beginning-position))))
 
 (defun pulsar--end ()
   "Return appropriate line end."
@@ -306,24 +320,37 @@ default)."
 
 ;;;;; Convenience functions
 
+(define-obsolete-function-alias
+  'pulsar-pulse-with-face
+  'pulsar-define-pulse-with-face
+  "1.0.0")
+
 ;;;###autoload
-(defmacro pulsar-pulse-with-face (name face)
-  "Produce NAME function to `pulsar--pulse' with FACE."
+(defmacro pulsar-define-pulse-with-face (face)
+  "Produce function to `pulsar--pulse' with FACE.
+If FACE starts with the `pulsar-' prefix, remove it and keep only
+the remaining text.  The assumption is that something like
+`pulsar-red' will be convered to `red', thus deriving a function
+named `pulsar-pulse-line-red'.  Any other FACE is taken as-is."
   (declare (indent function))
-  `(defun ,name ()
-     ,(format "Like `pulsar-pulse-line' but uses the `%s' face.
+  (let* ((face-string (symbol-name face))
+         (face-name (if (string-prefix-p "pulsar-" face-string)
+                        (replace-regexp-in-string "pulsar-" "" face-string)
+                      face-string)))
+    `(defun ,(intern (format "pulsar-pulse-line-%s" face-name)) ()
+       ,(format "Like `pulsar-pulse-line' but uses the `%s' face.
 The idea with this is to run it in special hooks or contexts
 where you need a different color than what Pulsar normally
-uses (per `pulsar-face')" face)
-     (interactive)
-     (pulsar--pulse nil ',face)))
+uses (per the user option `pulsar-face')" face)
+       (interactive)
+       (pulsar--pulse nil ',face))))
 
-(pulsar-pulse-with-face pulsar-pulse-line-red pulsar-red)
-(pulsar-pulse-with-face pulsar-pulse-line-green pulsar-green)
-(pulsar-pulse-with-face pulsar-pulse-line-yellow pulsar-yellow)
-(pulsar-pulse-with-face pulsar-pulse-line-blue pulsar-blue)
-(pulsar-pulse-with-face pulsar-pulse-line-magenta pulsar-magenta)
-(pulsar-pulse-with-face pulsar-pulse-line-cyan pulsar-cyan)
+(pulsar-define-pulse-with-face pulsar-red)
+(pulsar-define-pulse-with-face pulsar-green)
+(pulsar-define-pulse-with-face pulsar-yellow)
+(pulsar-define-pulse-with-face pulsar-blue)
+(pulsar-define-pulse-with-face pulsar-magenta)
+(pulsar-define-pulse-with-face pulsar-cyan)
 
 ;;;;; Highlight region
 
@@ -415,7 +442,8 @@ This is a buffer-local mode.  Also check `pulsar-global-mode'."
   (recenter nil)
   (pulsar-pulse-line))
 
-(defalias 'pulsar-recenter-middle 'pulsar-recenter-center "0.6.0")
+(defalias 'pulsar-recenter-middle 'pulsar-recenter-center
+  "Alias for `pulsar-recenter-center'.")
 
 ;;;; Reveal contents of Org or Outline headings
 
