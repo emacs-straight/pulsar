@@ -1,21 +1,21 @@
-#+title:                 pulsar.el: Pulse highlight line on demand or after running select functions
-#+author:                Protesilaos Stavrou
-#+email:                 info@protesilaos.com
-#+language:              en
-#+options:               ':t toc:nil author:t email:t num:t
-#+startup:               content
-#+macro:                 stable-version 1.0.0
-#+macro:                 release-date 2023-08-12
-#+macro:                 development-version 1.1.0-dev
-#+export_file_name:      pulsar.texi
-#+texinfo_filename:      pulsar.info
-#+texinfo_dir_category:  Emacs misc features
-#+texinfo_dir_title:     Pulsar: (pulsar)
-#+texinfo_dir_desc:      Pulse highlight line on demand or after running select functions
-#+texinfo_header:        @set MAINTAINERSITE @uref{https://protesilaos.com,maintainer webpage}
-#+texinfo_header:        @set MAINTAINER Protesilaos Stavrou
-#+texinfo_header:        @set MAINTAINEREMAIL @email{info@protesilaos.com}
-#+texinfo_header:        @set MAINTAINERCONTACT @uref{mailto:info@protesilaos.com,contact the maintainer}
+#+title: pulsar.el: Pulse highlight line on demand or after running select functions
+#+author: Protesilaos Stavrou
+#+email: info@protesilaos.com
+#+language: en
+#+options: ':t toc:nil author:t email:t num:t
+#+startup: content
+#+macro: stable-version 1.0.0
+#+macro: release-date 2023-08-12
+#+macro: development-version 1.1.0-dev
+#+export_file_name: pulsar.texi
+#+texinfo_filename: pulsar.info
+#+texinfo_dir_category: Emacs misc features
+#+texinfo_dir_title: Pulsar: (pulsar)
+#+texinfo_dir_desc: Pulse highlight line on demand or after running select functions
+#+texinfo_header: @set MAINTAINERSITE @uref{https://protesilaos.com,maintainer webpage}
+#+texinfo_header: @set MAINTAINER Protesilaos Stavrou
+#+texinfo_header: @set MAINTAINEREMAIL @email{info@protesilaos.com}
+#+texinfo_header: @set MAINTAINERCONTACT @uref{mailto:info@protesilaos.com,contact the maintainer}
 
 #+texinfo: @insertcopying
 
@@ -73,6 +73,16 @@ after a given function is invoked.  The affected functions are defined
 in the user option ~pulsar-pulse-functions~ and the effect takes place
 when either ~pulsar-mode~ (buffer-local) or ~pulsar-global-mode~ is
 enabled.
+
+#+vindex; pulsar-resolve-pulse-function-aliases
+By default, Pulsar does not try behave the same way for a function's
+aliases. If those are not added explicitly to the ~pulsar-pulse-functions~,
+they will not have a pulse effect. However, the user option
+~pulsar-resolve-pulse-function-aliases~ can be set to a non-nil value
+to change this behaviour, meaning that Pulsar will cover a function's
+aliases even if those are not explicitly added to the ~pulsar-pulse-functions~.
+[ The ~pulsar-resolve-pulse-function-aliases~ is part of
+  {{{development-version}}}. ]
 
 #+vindex: pulsar-delay
 #+vindex: pulsar-iterations
@@ -335,7 +345,7 @@ Pulsar is meant to be a collective effort.  Every bit of help matters.
 
 + Contributions to the code or manual :: Aymeric Agon-Rambosson,
   Bahman Movaqar, Daniel Mendler, Ivan Popovych, JD Smith, Maxim
-  Dunaevsky, Ryan Kaskel.
+  Dunaevsky, Ryan Kaskel, shipmints.
 
 + Ideas and user feedback :: Duy Nguyen, Mark Barton, Petter Storvik,
   Rudolf Adamkovič, Toon Claes, and users djl, kb.
