@@ -1,7 +1,7 @@
-This is doc2NFGNX.info, produced by makeinfo version 6.8 from
+This is docZnRhtK.info, produced by makeinfo version 6.8 from
 pulsar.texi.
 
-Copyright (C) 2022-2023 Free Software Foundation, Inc.
+Copyright (C) 2022-2024 Free Software Foundation, Inc.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -20,12 +20,12 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: doc2NFGNX.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docZnRhtK.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 pulsar.el: Pulse highlight line on demand or after running select functions
 ***************************************************************************
 
-Copyright (C) 2022-2023 Free Software Foundation, Inc.
+Copyright (C) 2022-2024 Free Software Foundation, Inc.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -43,11 +43,11 @@ customization options for ‘pulsar’ (or ‘pulsar.el’), and provides every
 other piece of information pertinent to it.
 
    The documentation furnished herein corresponds to stable version
-1.0.0, released on 2023-08-12.  Any reference to a newer feature which
+1.1.0, released on 2024-08-29.  Any reference to a newer feature which
 does not yet form part of the latest tagged commit, is explicitly marked
 as such.
 
-   Current development target is 1.1.0-dev.
+   Current development target is 1.2.0-dev.
 
    • Package name (GNU ELPA): ‘pulsar’
    • Official manual: <https://protesilaos.com/emacs/pulsar>
@@ -92,7 +92,7 @@ Indices
 
 
 
-File: doc2NFGNX.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docZnRhtK.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -110,8 +110,7 @@ a pulse effect.  However, the user option
 ‘pulsar-resolve-pulse-function-aliases’ can be set to a non-nil value to
 change this behaviour, meaning that Pulsar will cover a function’s
 aliases even if those are not explicitly added to the
-‘pulsar-pulse-functions’.  [ The ‘pulsar-resolve-pulse-function-aliases’
-is part of 1.1.0-dev.  ]
+‘pulsar-pulse-functions’.
 
    The overall duration of the highlight is determined by a combination
 of ‘pulsar-delay’ and ‘pulsar-iterations’.  The latter determines the
@@ -129,11 +128,9 @@ will pulse before fading away.  Whereas the ‘pulsar-highlight-line’
 command never pulses the line: the highlight stays in place as if
 ‘pulsar-pulse’ is nil.
 
-   The command ‘pulsar-pulse-region’ pulses the active region.  In case
-of multiple regions, it operates on the topmost one.  The effect of the
-pulse is controlled by the aforementioned user options, namely,
-‘pulsar-delay’, ‘pulsar-iterations’, ‘pulsar-face’.  [ The command
-‘pulsar-pulse-region’ is part of 1.1.0-dev.  ]
+   The command ‘pulsar-pulse-region’ pulses the active region.  The
+effect of the pulse is controlled by the aforementioned user options,
+namely, ‘pulsar-delay’, ‘pulsar-iterations’, ‘pulsar-face’.
 
    A do-what-I-mean command is also on offer: ‘pulsar-highlight-dwim’.
 It highlights the current line line like ‘pulsar-highlight-line’.  If
@@ -156,7 +153,7 @@ Luminates, Strictly Absent the Radiation”.
 * Convenience functions::
 
 
-File: doc2NFGNX.info,  Node: Convenience functions,  Up: Overview
+File: docZnRhtK.info,  Node: Convenience functions,  Up: Overview
 
 1.1 Convenience functions
 =========================
@@ -183,7 +180,7 @@ the user’s convenience:
 binding, or be incorporated in custom functions.
 
 
-File: doc2NFGNX.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docZnRhtK.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -194,7 +191,7 @@ File: doc2NFGNX.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: doc2NFGNX.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docZnRhtK.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -213,7 +210,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: doc2NFGNX.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docZnRhtK.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -240,7 +237,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: doc2NFGNX.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
+File: docZnRhtK.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -286,7 +283,7 @@ Remember to read the doc string of each of these variables.
 * Use pulsar in the minibuffer::
 
 
-File: doc2NFGNX.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
+File: docZnRhtK.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
 
 3.1 Use pulsar with next-error
 ==============================
@@ -301,7 +298,7 @@ Pulsar-level solution that “just works”:
      (add-hook 'next-error-hook #'pulsar-pulse-line)
 
 
-File: doc2NFGNX.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
+File: docZnRhtK.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
 
 3.2 Use pulsar in the minibuffer
 ================================
@@ -323,7 +320,7 @@ applied by default.  For example:
      (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
 
 
-File: doc2NFGNX.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
+File: docZnRhtK.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
 
 4 Integration with other packages
 *********************************
@@ -350,7 +347,7 @@ the aforementioned recentering functions.
      (add-hook 'imenu-after-jump-hook #'pulsar-reveal-entry)
 
 
-File: doc2NFGNX.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
+File: docZnRhtK.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
 
 5 Acknowledgements
 ******************
@@ -369,7 +366,7 @@ Ideas and user feedback
      Claes, and users djl, kb.
 
 
-File: doc2NFGNX.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docZnRhtK.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -851,7 +848,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: doc2NFGNX.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docZnRhtK.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -863,7 +860,7 @@ B Indices
 * Concept index::
 
 
-File: doc2NFGNX.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docZnRhtK.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -872,10 +869,10 @@ B.1 Function index
 * Menu:
 
 * pulsar-global-mode:                    Overview.             (line  6)
-* pulsar-highlight-dwim:                 Overview.             (line 44)
-* pulsar-highlight-line:                 Overview.             (line 32)
+* pulsar-highlight-dwim:                 Overview.             (line 41)
+* pulsar-highlight-line:                 Overview.             (line 31)
 * pulsar-mode:                           Overview.             (line  6)
-* pulsar-pulse-line:                     Overview.             (line 32)
+* pulsar-pulse-line:                     Overview.             (line 31)
 * pulsar-pulse-line-blue:                Convenience functions.
                                                                (line 18)
 * pulsar-pulse-line-cyan:                Convenience functions.
@@ -888,7 +885,7 @@ B.1 Function index
                                                                (line 12)
 * pulsar-pulse-line-yellow:              Convenience functions.
                                                                (line 16)
-* pulsar-pulse-region:                   Overview.             (line 38)
+* pulsar-pulse-region:                   Overview.             (line 37)
 * pulsar-recenter-center:                Integration with other packages.
                                                                (line  9)
 * pulsar-recenter-middle:                Integration with other packages.
@@ -899,7 +896,7 @@ B.1 Function index
                                                                (line 13)
 
 
-File: doc2NFGNX.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docZnRhtK.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -907,15 +904,15 @@ B.2 Variable index
  [index ]
 * Menu:
 
-* pulsar-delay:                          Overview.             (line 22)
-* pulsar-face:                           Overview.             (line 22)
-* pulsar-highlight-face:                 Overview.             (line 49)
-* pulsar-iterations:                     Overview.             (line 22)
-* pulsar-pulse:                          Overview.             (line 28)
+* pulsar-delay:                          Overview.             (line 21)
+* pulsar-face:                           Overview.             (line 21)
+* pulsar-highlight-face:                 Overview.             (line 46)
+* pulsar-iterations:                     Overview.             (line 21)
+* pulsar-pulse:                          Overview.             (line 27)
 * pulse-pulse-functions:                 Overview.             (line  6)
 
 
-File: doc2NFGNX.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docZnRhtK.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -934,20 +931,20 @@ B.3 Concept index
 Tag Table:
 Node: Top872
 Node: Overview3036
-Node: Convenience functions6019
-Node: Installation6811
-Node: GNU ELPA package6998
-Node: Manual installation7559
-Node: Sample configuration8328
-Node: Use pulsar with next-error9747
-Node: Use pulsar in the minibuffer10402
-Node: Integration with other packages11271
-Node: Acknowledgements12320
-Node: GNU Free Documentation License12909
-Node: Indices38270
-Node: Function index38446
-Node: Variable index40439
-Node: Concept index41044
+Node: Convenience functions5815
+Node: Installation6607
+Node: GNU ELPA package6794
+Node: Manual installation7355
+Node: Sample configuration8124
+Node: Use pulsar with next-error9543
+Node: Use pulsar in the minibuffer10198
+Node: Integration with other packages11067
+Node: Acknowledgements12116
+Node: GNU Free Documentation License12705
+Node: Indices38066
+Node: Function index38242
+Node: Variable index40235
+Node: Concept index40840
 
 End Tag Table
 
