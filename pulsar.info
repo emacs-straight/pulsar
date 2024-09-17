@@ -1,4 +1,4 @@
-This is doc84TeIR.info, produced by makeinfo version 6.8 from
+This is docyY4ht1.info, produced by makeinfo version 6.8 from
 pulsar.texi.
 
 Copyright (C) 2022-2024 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: doc84TeIR.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docyY4ht1.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 pulsar.el: Pulse highlight line on demand or after running select functions
 ***************************************************************************
@@ -92,7 +92,7 @@ Indices
 
 
 
-File: doc84TeIR.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docyY4ht1.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -103,13 +103,12 @@ in the user option ‘pulsar-pulse-functions’ and the effect takes place
 when either ‘pulsar-mode’ (buffer-local) or ‘pulsar-global-mode’ is
 enabled.
 
-   #+vindex; pulsar-resolve-pulse-function-aliases By default, Pulsar
-does not try behave the same way for a function’s aliases.  If those are
-not added explicitly to the ‘pulsar-pulse-functions’, they will not have
-a pulse effect.  However, the user option
-‘pulsar-resolve-pulse-function-aliases’ can be set to a non-nil value to
-change this behaviour, meaning that Pulsar will cover a function’s
-aliases even if those are not explicitly added to the
+   By default, Pulsar does not try to behave the same way for a
+function’s aliases.  If those are not added explicitly to the
+‘pulsar-pulse-functions’, they will not have a pulse effect.  However,
+the user option ‘pulsar-resolve-pulse-function-aliases’ can be set to a
+non-nil value to change this behaviour, meaning that Pulsar will cover a
+function’s aliases even if those are not explicitly added to the
 ‘pulsar-pulse-functions’.
 
    The overall duration of the highlight is determined by a combination
@@ -121,6 +120,13 @@ seconds before they fade out.  The applicable face is specified in
    To disable the pulse but keep the temporary highlight, set the user
 option ‘pulsar-pulse’ to nil.  The current line will remain highlighted
 until another command is invoked.
+
+   The user option ‘pulsar-inhibit-hidden-buffers’ controls whether
+Pulsar is active in hidden buffers.  These are buffers that users
+normally do not interact with and are not displayed in the interface of
+the various buffer-switching commands.  When this user option is nil,
+‘pulsar-mode’ will work in those buffers as well.  [ The
+‘pulsar-inhibit-hidden-buffers’ is part of 1.2.0-dev.  ]
 
    To highlight the current line on demand, use the ‘pulsar-pulse-line’
 command.  When ‘pulsar-pulse’ is non-nil (the default), its highlight
@@ -153,7 +159,7 @@ Luminates, Strictly Absent the Radiation”.
 * Convenience functions::
 
 
-File: doc84TeIR.info,  Node: Convenience functions,  Up: Overview
+File: docyY4ht1.info,  Node: Convenience functions,  Up: Overview
 
 1.1 Convenience functions
 =========================
@@ -180,7 +186,7 @@ the user’s convenience:
 binding, or be incorporated in custom functions.
 
 
-File: doc84TeIR.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docyY4ht1.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -191,7 +197,7 @@ File: doc84TeIR.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: doc84TeIR.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docyY4ht1.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -210,7 +216,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: doc84TeIR.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docyY4ht1.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -237,7 +243,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: doc84TeIR.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
+File: docyY4ht1.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -283,7 +289,7 @@ Remember to read the doc string of each of these variables.
 * Use pulsar in the minibuffer::
 
 
-File: doc84TeIR.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
+File: docyY4ht1.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
 
 3.1 Use pulsar with next-error
 ==============================
@@ -298,7 +304,7 @@ Pulsar-level solution that “just works”:
      (add-hook 'next-error-hook #'pulsar-pulse-line)
 
 
-File: doc84TeIR.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
+File: docyY4ht1.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
 
 3.2 Use pulsar in the minibuffer
 ================================
@@ -320,7 +326,7 @@ applied by default.  For example:
      (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
 
 
-File: doc84TeIR.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
+File: docyY4ht1.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
 
 4 Integration with other packages
 *********************************
@@ -347,7 +353,7 @@ the aforementioned recentering functions.
      (add-hook 'imenu-after-jump-hook #'pulsar-reveal-entry)
 
 
-File: doc84TeIR.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
+File: docyY4ht1.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
 
 5 Acknowledgements
 ******************
@@ -366,7 +372,7 @@ Ideas and user feedback
      Claes, and users djl, kb.
 
 
-File: doc84TeIR.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docyY4ht1.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -848,7 +854,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: doc84TeIR.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docyY4ht1.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -860,7 +866,7 @@ B Indices
 * Concept index::
 
 
-File: doc84TeIR.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docyY4ht1.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -869,10 +875,10 @@ B.1 Function index
 * Menu:
 
 * pulsar-global-mode:                    Overview.             (line  6)
-* pulsar-highlight-dwim:                 Overview.             (line 41)
-* pulsar-highlight-line:                 Overview.             (line 31)
+* pulsar-highlight-dwim:                 Overview.             (line 47)
+* pulsar-highlight-line:                 Overview.             (line 37)
 * pulsar-mode:                           Overview.             (line  6)
-* pulsar-pulse-line:                     Overview.             (line 31)
+* pulsar-pulse-line:                     Overview.             (line 37)
 * pulsar-pulse-line-blue:                Convenience functions.
                                                                (line 18)
 * pulsar-pulse-line-cyan:                Convenience functions.
@@ -885,7 +891,7 @@ B.1 Function index
                                                                (line 12)
 * pulsar-pulse-line-yellow:              Convenience functions.
                                                                (line 16)
-* pulsar-pulse-region:                   Overview.             (line 37)
+* pulsar-pulse-region:                   Overview.             (line 43)
 * pulsar-recenter-center:                Integration with other packages.
                                                                (line  9)
 * pulsar-recenter-middle:                Integration with other packages.
@@ -896,7 +902,7 @@ B.1 Function index
                                                                (line 13)
 
 
-File: doc84TeIR.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docyY4ht1.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -904,15 +910,17 @@ B.2 Variable index
  [index ]
 * Menu:
 
-* pulsar-delay:                          Overview.             (line 21)
-* pulsar-face:                           Overview.             (line 21)
-* pulsar-highlight-face:                 Overview.             (line 46)
-* pulsar-iterations:                     Overview.             (line 21)
-* pulsar-pulse:                          Overview.             (line 27)
+* pulsar-delay:                          Overview.             (line 20)
+* pulsar-face:                           Overview.             (line 20)
+* pulsar-highlight-face:                 Overview.             (line 52)
+* pulsar-inhibit-hidden-buffers:         Overview.             (line 30)
+* pulsar-iterations:                     Overview.             (line 20)
+* pulsar-pulse:                          Overview.             (line 26)
+* pulsar-resolve-pulse-function-aliases: Overview.             (line 12)
 * pulse-pulse-functions:                 Overview.             (line  6)
 
 
-File: doc84TeIR.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docyY4ht1.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -931,20 +939,20 @@ B.3 Concept index
 Tag Table:
 Node: Top872
 Node: Overview3036
-Node: Convenience functions5815
-Node: Installation6607
-Node: GNU ELPA package6794
-Node: Manual installation7355
-Node: Sample configuration8124
-Node: Use pulsar with next-error9543
-Node: Use pulsar in the minibuffer10198
-Node: Integration with other packages11067
-Node: Acknowledgements12116
-Node: GNU Free Documentation License12705
-Node: Indices38066
-Node: Function index38242
-Node: Variable index40235
-Node: Concept index40840
+Node: Convenience functions6173
+Node: Installation6965
+Node: GNU ELPA package7152
+Node: Manual installation7713
+Node: Sample configuration8482
+Node: Use pulsar with next-error9901
+Node: Use pulsar in the minibuffer10556
+Node: Integration with other packages11425
+Node: Acknowledgements12474
+Node: GNU Free Documentation License13063
+Node: Indices38424
+Node: Function index38600
+Node: Variable index40593
+Node: Concept index41344
 
 End Tag Table
 
