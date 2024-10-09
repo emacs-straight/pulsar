@@ -361,9 +361,9 @@ pulse effect."
 (defun pulsar-pulse-region ()
   "Temporarily highlight the active region if any."
   (interactive)
-  (when (region-active-p)
-    (let ((beg (region-beginning))
-          (end (region-end)))
+  (if (region-active-p)
+      (let ((beg (region-beginning))
+            (end (region-end)))
       ;; FIXME 2024-08-29: Finding the lines and columns therein
       ;; does not work because consecutive pulses cancel each
       ;; other out, leaving only the last one active.
@@ -381,7 +381,11 @@ pulse effect."
       ;;     (setq beg (progn (move-to-column begcol) (point))
       ;;           end (progn (move-to-column endcol) (point))))
       ;;   (pulsar--pulse nil nil beg end)))
-      (pulsar--pulse nil nil beg end))))
+        (pulsar--pulse nil nil beg end))
+    (when (mark)
+      (let ((beg (mark))
+            (end (point)))
+        (pulsar--pulse nil nil beg end)))))
 
 ;;;###autoload
 (defun pulsar-highlight-line ()
@@ -485,7 +489,7 @@ This is a buffer-local mode.  Also check `pulsar-global-mode'."
   (if pulsar-mode
       (progn
         (when pulsar-resolve-pulse-function-aliases
-          (pulsar--resolve-function-aliases))
+          (pulsar-resolve-function-aliases))
         (add-hook 'post-command-hook #'pulsar--post-command-pulse nil 'local))
     (remove-hook 'post-command-hook #'pulsar--post-command-pulse 'local)))
 
@@ -536,8 +540,14 @@ If FUNC is a function alias, return the function alias chain."
                   (push sym aliases))))
     aliases))
 
-(defun pulsar--resolve-function-aliases ()
-  "Amend `pulsar-pulse-functions' to respect function aliases."
+(defun pulsar-resolve-function-aliases ()
+  "Amend `pulsar-pulse-functions' to respect function aliases.
+This is called automatically when
+`pulsar-resolve-pulse-function-aliases' is non-nil.
+
+You may also call this manually in your configuration after setting
+`pulsar-pulse-functions'.  In that case, you would prefer
+`pulsar-resolve-pulse-function-aliases' to be nil."
   (setq pulsar-pulse-functions
         (seq-union pulsar-pulse-functions
                    (seq-union (pulsar--find-fn-aliases pulsar-pulse-functions)

@@ -1,4 +1,4 @@
-This is docyY4ht1.info, produced by makeinfo version 6.8 from
+This is docU2nzPV.info, produced by makeinfo version 6.8 from
 pulsar.texi.
 
 Copyright (C) 2022-2024 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docyY4ht1.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docU2nzPV.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 pulsar.el: Pulse highlight line on demand or after running select functions
 ***************************************************************************
@@ -92,7 +92,7 @@ Indices
 
 
 
-File: docyY4ht1.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docU2nzPV.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -159,7 +159,7 @@ Luminates, Strictly Absent the Radiation”.
 * Convenience functions::
 
 
-File: docyY4ht1.info,  Node: Convenience functions,  Up: Overview
+File: docU2nzPV.info,  Node: Convenience functions,  Up: Overview
 
 1.1 Convenience functions
 =========================
@@ -186,7 +186,7 @@ the user’s convenience:
 binding, or be incorporated in custom functions.
 
 
-File: docyY4ht1.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docU2nzPV.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -197,7 +197,7 @@ File: docyY4ht1.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: docyY4ht1.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docU2nzPV.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -216,7 +216,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: docyY4ht1.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docU2nzPV.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -243,7 +243,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: docyY4ht1.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
+File: docU2nzPV.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -289,7 +289,7 @@ Remember to read the doc string of each of these variables.
 * Use pulsar in the minibuffer::
 
 
-File: docyY4ht1.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
+File: docU2nzPV.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
 
 3.1 Use pulsar with next-error
 ==============================
@@ -304,7 +304,7 @@ Pulsar-level solution that “just works”:
      (add-hook 'next-error-hook #'pulsar-pulse-line)
 
 
-File: docyY4ht1.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
+File: docU2nzPV.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
 
 3.2 Use pulsar in the minibuffer
 ================================
@@ -326,7 +326,7 @@ applied by default.  For example:
      (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
 
 
-File: docyY4ht1.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
+File: docU2nzPV.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
 
 4 Integration with other packages
 *********************************
@@ -353,7 +353,7 @@ the aforementioned recentering functions.
      (add-hook 'imenu-after-jump-hook #'pulsar-reveal-entry)
 
 
-File: docyY4ht1.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
+File: docU2nzPV.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
 
 5 Acknowledgements
 ******************
@@ -365,14 +365,15 @@ Author/maintainer
 
 Contributions to the code or manual
      Aymeric Agon-Rambosson, Bahman Movaqar, Daniel Mendler, Ivan
-     Popovych, JD Smith, Maxim Dunaevsky, Ryan Kaskel, shipmints.
+     Popovych, JD Smith, Maxim Dunaevsky, Ryan Kaskel, shipmints,
+     ukiran03.
 
 Ideas and user feedback
      Duy Nguyen, Mark Barton, Petter Storvik, Rudolf Adamkovič, Toon
      Claes, and users djl, kb.
 
 
-File: docyY4ht1.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docU2nzPV.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -854,7 +855,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: docyY4ht1.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docU2nzPV.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -866,7 +867,7 @@ B Indices
 * Concept index::
 
 
-File: docyY4ht1.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docU2nzPV.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -902,7 +903,7 @@ B.1 Function index
                                                                (line 13)
 
 
-File: docyY4ht1.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docU2nzPV.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -920,7 +921,7 @@ B.2 Variable index
 * pulse-pulse-functions:                 Overview.             (line  6)
 
 
-File: docyY4ht1.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docU2nzPV.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -948,11 +949,11 @@ Node: Use pulsar with next-error9901
 Node: Use pulsar in the minibuffer10556
 Node: Integration with other packages11425
 Node: Acknowledgements12474
-Node: GNU Free Documentation License13063
-Node: Indices38424
-Node: Function index38600
-Node: Variable index40593
-Node: Concept index41344
+Node: GNU Free Documentation License13078
+Node: Indices38439
+Node: Function index38615
+Node: Variable index40608
+Node: Concept index41359
 
 End Tag Table
 
