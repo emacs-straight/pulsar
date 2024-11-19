@@ -26,55 +26,13 @@
 
 ;;; Commentary:
 ;;
-;; This is a small package that temporarily highlights the current line
-;; after a given function is invoked.  The affected functions are
-;; defined in the user option `pulsar-pulse-functions' and the effect
-;; takes place when either `pulsar-mode' (buffer-local) or
-;; `pulsar-global-mode' is enabled.
+;; This is a small package that temporarily highlights the current
+;; line after a given function is invoked.  Consult the official
+;; manual for the technicalities.
 ;;
-;; Regions may also be temporarily highlighted after a region command
-;; is called.  The affected functions are defined in the user option
-;; `pulsar-pulse-region-functions'.
-;;
-;; By default, Pulsar does not try behave the same way for a
-;; function's aliases.  If those are not added explicitly to the
-;; `pulsar-pulse-functions' or `pulsar-pulse-region-functions', they
-;; will not have a pulse effect.  However, the user option
-;; `pulsar-resolve-pulse-function-aliases' can be set to a non-nil
-;; value to change this behaviour, meaning that Pulsar will cover a
-;; function's aliases even if those are not explicitly added to the
-;; `pulsar-pulse-functions' or `pulsar-pulse-region-functions'.
-;;
-;; The overall duration of the highlight is determined by a combination
-;; of `pulsar-delay' and `pulsar-iterations'.  The latter determines the
-;; number of blinks in a pulse, while the former sets their delay in
-;; seconds before they fade out.  The applicable face is specified in
-;; `pulsar-face'.
-;;
-;; To disable the pulse but keep the temporary highlight, set the user
-;; option `pulsar-pulse' to nil.  The current line will remain
-;; highlighted until another command is invoked.
-;;
-;; To highlight the current line on demand, use the `pulsar-pulse-line'
-;; command.  When `pulsar-pulse' is non-nil (the default), its highlight
-;; will pulse before fading away.  Whereas the `pulsar-highlight-line'
-;; command never pulses the line: the highlight stays in place as if
-;; `pulsar-pulse' is nil.
-;;
-;; To help users differentiate between the pulse and highlight effects,
-;; the user option `pulsar-highlight-face' controls the presentation of
-;; the `pulsar-highlight-line' command.  By default, this variable is
-;; the same as `pulsar-face'.
-;;
-;; The user option `pulsar-region-face' controls the presentation of
-;; the `pulsar-pulse-region' command.  By default, this variable is
-;; the same as `pulsar-face'.
-;;
-;; Pulsar depends on the built-in `pulse.el' library.
-;;
-;; Why the name "pulsar"?  It sounds like "pulse" and is a recognisable
-;; word.  Though if you need a backronym, consider "Pulsar Unquestionably
-;; Luminates, Strictly Absent the Radiation".
+;; Why the name "pulsar"?  It sounds like "pulse" and is a
+;; recognisable word.  Though if you need a backronym, consider
+;; "Pulsar Unquestionably Luminates, Strictly Absent the Radiation".
 
 ;;; Code:
 
@@ -86,6 +44,30 @@ Extension of `pulse.el'."
   :group 'editing)
 
 ;;;; User options
+
+(defcustom pulsar-pulse t
+  "When non-nil enable pulsing.
+Otherwise the highlight stays on the current line until another
+command is invoked."
+  :type 'boolean
+  :package-version '(pulsar . "0.2.0")
+  :group 'pulsar)
+
+(defcustom pulsar-delay 0.05
+  "Delay between increments of a pulse.
+Together with `pulsar-iterations' control the overall duration of
+a pulse.  Only applies when `pulsar-pulse' is non-nil."
+  :type 'number
+  :package-version '(pulsar . "0.1.0")
+  :group 'pulsar)
+
+(defcustom pulsar-iterations pulse-iterations
+  "Number of iterations in a pulse highlight.
+Together with `pulsar-delay' control the overall duration of a
+pulse.  Only applies when `pulsar-pulse' is non-nil."
+  :type 'number
+  :package-version '(pulsar . "0.1.0")
+  :group 'pulsar)
 
 (defcustom pulsar-pulse-functions
   '(backward-page
@@ -173,11 +155,10 @@ enabling Pulsar to respect `tab-bar-new-tab' alias `tab-new'."
 
 (defcustom pulsar-inhibit-hidden-buffers t
   "When non-nil, `pulsar-mode' will not be enabled in hidden buffers.
-Hidden buffers are those with names that start with a space character.
-
-This handles cases such as:
-`eldoc' buffers in `special-mode'; e.g., \" *eldoc*\"
-or `diff-hl-mode` buffers; e.g., \" *diff-hl-diff*\"."
+Hidden buffers are those whose name starts with a space character.  They
+are not meant to be touched by the user, so pulsing in them is not
+necessary.  This option is provided in case there is some scenario where
+pulsing makes sense."
   :type 'boolean
   :package-version '(pulsar . "1.2.0")
   :group 'pulsar)
@@ -236,30 +217,6 @@ background attribute."
                         (face :tag "Cyan style" pulsar-cyan)
                         (face :tag "Other face (must have a background)")))
   :package-version '(pulsar . "1.2.0")
-  :group 'pulsar)
-
-(defcustom pulsar-pulse t
-  "When non-nil enable pulsing.
-Otherwise the highlight stays on the current line until another
-command is invoked."
-  :type 'boolean
-  :package-version '(pulsar . "0.2.0")
-  :group 'pulsar)
-
-(defcustom pulsar-delay 0.05
-  "Delay between increments of a pulse.
-Together with `pulsar-iterations' control the overall duration of
-a pulse.  Only applies when `pulsar-pulse' is non-nil."
-  :type 'number
-  :package-version '(pulsar . "0.1.0")
-  :group 'pulsar)
-
-(defcustom pulsar-iterations pulse-iterations
-  "Number of iterations in a pulse highlight.
-Together with `pulsar-delay' control the overall duration of a
-pulse.  Only applies when `pulsar-pulse' is non-nil."
-  :type 'number
-  :package-version '(pulsar . "0.1.0")
   :group 'pulsar)
 
 ;;;; Faces
@@ -340,9 +297,9 @@ pulse.  Only applies when `pulsar-pulse' is non-nil."
   (save-excursion
     (goto-char (line-beginning-position))
     (and (not (bobp))
-	     (or (beginning-of-line 1) t)
-	     (save-match-data
-	       (looking-at "^[\s\t]+")))))
+         (or (beginning-of-line 1) t)
+         (save-match-data
+           (looking-at "^[\s\t]+")))))
 
 (defun pulsar--buffer-end-p ()
   "Return non-nil if point is at the end of the buffer."
@@ -557,6 +514,7 @@ Also check `pulsar-global-mode'."
 (defun pulsar--pulse-on-window-change (&rest _)
   "Run `pulsar-pulse-line' on window change."
   (when (and pulsar-pulse-on-window-change
+             (not (minibufferp))
              (or pulsar-mode pulsar-global-mode))
     (pulsar-pulse-line)))
 

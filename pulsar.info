@@ -1,4 +1,4 @@
-This is docffvTqT.info, produced by makeinfo version 6.8 from
+This is docLZMgs3.info, produced by makeinfo version 6.8 from
 pulsar.texi.
 
 Copyright (C) 2022-2024 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docffvTqT.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docLZMgs3.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 pulsar.el: Pulse highlight line on demand or after running select functions
 ***************************************************************************
@@ -92,7 +92,7 @@ Indices
 
 
 
-File: docffvTqT.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docLZMgs3.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -110,6 +110,19 @@ the user option ‘pulsar-resolve-pulse-function-aliases’ can be set to a
 non-nil value to change this behaviour, meaning that Pulsar will cover a
 function’s aliases even if those are not explicitly added to the
 ‘pulsar-pulse-functions’.
+
+   Pulsar can also produce an effect over a specific region.  This is
+useful to, for example, highlight the area covered by text that is
+pasted in the buffer.  The user option ‘pulsar-pulse-region-functions’
+defines a list of functions that are region-aware in this regard.  The
+default value covers copyring, pasting, and undoing/redoing.  [ The
+‘pulsar-pulse-region-functions’ is part of 1.2.0-dev.  ]
+
+   The pulse effect also happens whenever there is a change to the
+window layout.  This includes the selection, addition, deletion, resize
+of windows in a frame.  Users who do not want this to happen can set the
+user option ‘pulsar-pulse-on-window-change’ to a nil value.  [ This is
+part of 1.2.0-dev.  ]
 
    The overall duration of the highlight is determined by a combination
 of ‘pulsar-delay’ and ‘pulsar-iterations’.  The latter determines the
@@ -159,7 +172,7 @@ Luminates, Strictly Absent the Radiation”.
 * Convenience functions::
 
 
-File: docffvTqT.info,  Node: Convenience functions,  Up: Overview
+File: docLZMgs3.info,  Node: Convenience functions,  Up: Overview
 
 1.1 Convenience functions
 =========================
@@ -186,7 +199,7 @@ the user’s convenience:
 binding, or be incorporated in custom functions.
 
 
-File: docffvTqT.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docLZMgs3.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -197,7 +210,7 @@ File: docffvTqT.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: docffvTqT.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docLZMgs3.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -216,7 +229,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: docffvTqT.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docLZMgs3.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -243,7 +256,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: docffvTqT.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
+File: docLZMgs3.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -289,7 +302,7 @@ Remember to read the doc string of each of these variables.
 * Use pulsar in the minibuffer::
 
 
-File: docffvTqT.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
+File: docLZMgs3.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
 
 3.1 Use pulsar with next-error
 ==============================
@@ -304,7 +317,7 @@ Pulsar-level solution that “just works”:
      (add-hook 'next-error-hook #'pulsar-pulse-line)
 
 
-File: docffvTqT.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
+File: docLZMgs3.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
 
 3.2 Use pulsar in the minibuffer
 ================================
@@ -326,7 +339,7 @@ applied by default.  For example:
      (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
 
 
-File: docffvTqT.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
+File: docLZMgs3.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
 
 4 Integration with other packages
 *********************************
@@ -353,7 +366,7 @@ the aforementioned recentering functions.
      (add-hook 'imenu-after-jump-hook #'pulsar-reveal-entry)
 
 
-File: docffvTqT.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
+File: docLZMgs3.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
 
 5 Acknowledgements
 ******************
@@ -369,11 +382,12 @@ Contributions to the code or manual
      ukiran03.
 
 Ideas and user feedback
-     Duy Nguyen, Mark Barton, Petter Storvik, Rudolf Adamkovič, Toon
-     Claes, and users djl, kb.
+     Anwesh Gangula, Diego Alvarez, Duy Nguyen, Mark Barton, Petter
+     Storvik, Ronny Randen, Rudolf Adamkovič, Toon Claes, and users djl,
+     kb.
 
 
-File: docffvTqT.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docLZMgs3.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -855,7 +869,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: docffvTqT.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docLZMgs3.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -867,7 +881,7 @@ B Indices
 * Concept index::
 
 
-File: docffvTqT.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docLZMgs3.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -876,10 +890,10 @@ B.1 Function index
 * Menu:
 
 * pulsar-global-mode:                    Overview.             (line  6)
-* pulsar-highlight-dwim:                 Overview.             (line 47)
-* pulsar-highlight-line:                 Overview.             (line 37)
+* pulsar-highlight-dwim:                 Overview.             (line 60)
+* pulsar-highlight-line:                 Overview.             (line 50)
 * pulsar-mode:                           Overview.             (line  6)
-* pulsar-pulse-line:                     Overview.             (line 37)
+* pulsar-pulse-line:                     Overview.             (line 50)
 * pulsar-pulse-line-blue:                Convenience functions.
                                                                (line 18)
 * pulsar-pulse-line-cyan:                Convenience functions.
@@ -892,7 +906,9 @@ B.1 Function index
                                                                (line 12)
 * pulsar-pulse-line-yellow:              Convenience functions.
                                                                (line 16)
-* pulsar-pulse-region:                   Overview.             (line 43)
+* pulsar-pulse-on-window-change:         Overview.             (line 27)
+* pulsar-pulse-region:                   Overview.             (line 56)
+* pulsar-pulse-region-functions:         Overview.             (line 20)
 * pulsar-recenter-center:                Integration with other packages.
                                                                (line  9)
 * pulsar-recenter-middle:                Integration with other packages.
@@ -903,7 +919,7 @@ B.1 Function index
                                                                (line 13)
 
 
-File: docffvTqT.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docLZMgs3.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -911,17 +927,17 @@ B.2 Variable index
  [index ]
 * Menu:
 
-* pulsar-delay:                          Overview.             (line 20)
-* pulsar-face:                           Overview.             (line 20)
-* pulsar-highlight-face:                 Overview.             (line 52)
-* pulsar-inhibit-hidden-buffers:         Overview.             (line 30)
-* pulsar-iterations:                     Overview.             (line 20)
-* pulsar-pulse:                          Overview.             (line 26)
+* pulsar-delay:                          Overview.             (line 33)
+* pulsar-face:                           Overview.             (line 33)
+* pulsar-highlight-face:                 Overview.             (line 65)
+* pulsar-inhibit-hidden-buffers:         Overview.             (line 43)
+* pulsar-iterations:                     Overview.             (line 33)
+* pulsar-pulse:                          Overview.             (line 39)
 * pulsar-resolve-pulse-function-aliases: Overview.             (line 12)
 * pulse-pulse-functions:                 Overview.             (line  6)
 
 
-File: docffvTqT.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docLZMgs3.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -940,20 +956,20 @@ B.3 Concept index
 Tag Table:
 Node: Top872
 Node: Overview3036
-Node: Convenience functions6173
-Node: Installation6965
-Node: GNU ELPA package7152
-Node: Manual installation7713
-Node: Sample configuration8482
-Node: Use pulsar with next-error9901
-Node: Use pulsar in the minibuffer10556
-Node: Integration with other packages11425
-Node: Acknowledgements12474
-Node: GNU Free Documentation License13078
-Node: Indices38439
-Node: Function index38615
-Node: Variable index40608
-Node: Concept index41359
+Node: Convenience functions6896
+Node: Installation7688
+Node: GNU ELPA package7875
+Node: Manual installation8436
+Node: Sample configuration9205
+Node: Use pulsar with next-error10624
+Node: Use pulsar in the minibuffer11279
+Node: Integration with other packages12148
+Node: Acknowledgements13197
+Node: GNU Free Documentation License13851
+Node: Indices39212
+Node: Function index39388
+Node: Variable index41527
+Node: Concept index42278
 
 End Tag Table
 
