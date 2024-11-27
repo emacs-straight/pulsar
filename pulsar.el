@@ -133,14 +133,29 @@ This only takes effect when `pulsar-mode' (buffer-local) or
 (defcustom pulsar-pulse-region-functions
   '(yank
     kill-region
+    kill-line
     kill-ring-save
     append-next-kill
+    kill-whole-line
+    kill-visual-line
+    kill-word backward-kill-word
+    kill-sentence backward-kill-sentence
+    kill-paragraph backward-kill-paragraph
+    kill-sexp backward-kill-sexp
+    kill-rectangle
+    yank-rectangle
+    open-rectangle
     undo)
   "Functions that highlight the affected region after invocation.
-This only takes effect when `pulsar-mode' (buffer-local) or
-`pulsar-global-mode' is enabled."
+This only takes effect when `pulsar-mode' is enabled."
   :type '(repeat function)
-  :package-version '(pulsar . "1.3.0")
+  :package-version '(pulsar . "1.2.0")
+  :group 'pulsar)
+
+(defcustom pulsar-pulse-region nil
+  "When non-nil, highlight the affected region after invocation."
+  :type 'boolean
+  :package-version '(pulsar . "1.2.0")
   :group 'pulsar)
 
 (defcustom pulsar-resolve-pulse-function-aliases t
@@ -163,15 +178,34 @@ pulsing makes sense."
   :package-version '(pulsar . "1.2.0")
   :group 'pulsar)
 
-(defcustom pulsar-pulse-on-window-change t
-  "When non-nil enable pulsing on every window change.
+(defcustom pulsar-pulse-on-window-change nil
+  "When non-nil, enable pulsing on every window change.
 This covers all commands or functions that affect the current
 window.  Users who prefer to trigger a pulse only after select
 functions (e.g. only after `other-window') are advised to set
 this variable to nil and update the `pulsar-pulse-functions'
 accordingly."
   :type 'boolean
+  :package-version '(pulsar . "1.2.0")
   :group 'pulsar)
+
+(defconst pulsar--face-choice-widget
+  '(radio :tag "Select another face"
+          (face :tag "Generic pulse.el face" pulsar-generic)
+          (face :tag "Red style" pulsar-red)
+          (face :tag "Green style" pulsar-green)
+          (face :tag "Yellow style" pulsar-yellow)
+          (face :tag "Blue style" pulsar-blue)
+          (face :tag "Magenta style" pulsar-magenta)
+          (face :tag "Cyan style" pulsar-cyan)
+          (face :tag "Other face (must have a background)"))
+  "Widget for `defcustom' type to select a face.")
+
+(defconst pulsar--face-with-default-and-choice-widget
+  `(choice :tag "Choose a face"
+           (variable :tag "Use the `pulsar-face'" pulsar-face)
+           ,pulsar--face-choice-widget)
+  "Like `pulsar--face-choice-widget' plus the `pulsar-face' option.")
 
 (defcustom pulsar-face 'pulsar-generic
   "Face of the regular pulse line effect (`pulsar-pulse-line').
@@ -180,42 +214,31 @@ from the underlying pulse library.  Users can select one among
 `pulsar-red', `pulsar-green', `pulsar-yellow', `pulsar-blue',
 `pulsar-magenta', `pulsar-cyan', or any other face that has a
 background attribute."
-  :type '(radio (face :tag "Generic pulse.el face" pulsar-generic)
-                (face :tag "Red style" pulsar-red)
-                (face :tag "Green style" pulsar-green)
-                (face :tag "Yellow style" pulsar-yellow)
-                (face :tag "Blue style" pulsar-blue)
-                (face :tag "Magenta style" pulsar-magenta)
-                (face :tag "Cyan style" pulsar-cyan)
-                (face :tag "Other face (must have a background)"))
+  :type pulsar--face-choice-widget
   :package-version '(pulsar . "0.2.0")
   :group 'pulsar)
 
 (defcustom pulsar-highlight-face 'pulsar-face
   "Face used in `pulsar-highlight-line'."
-  :type '(choice (variable pulsar-face)
-                 (radio (face :tag "Generic pulse.el face" pulsar-generic)
-                        (face :tag "Red style" pulsar-red)
-                        (face :tag "Green style" pulsar-green)
-                        (face :tag "Yellow style" pulsar-yellow)
-                        (face :tag "Blue style" pulsar-blue)
-                        (face :tag "Magenta style" pulsar-magenta)
-                        (face :tag "Cyan style" pulsar-cyan)
-                        (face :tag "Other face (must have a background)")))
+  :type pulsar--face-with-default-and-choice-widget
   :package-version '(pulsar . "0.3.0")
   :group 'pulsar)
 
 (defcustom pulsar-region-face 'pulsar-face
-  "Face used in `pulsar-pulse-region'."
-  :type '(choice (variable pulsar-face)
-                 (radio (face :tag "Generic pulse.el face" pulsar-generic)
-                        (face :tag "Red style" pulsar-red)
-                        (face :tag "Green style" pulsar-green)
-                        (face :tag "Yellow style" pulsar-yellow)
-                        (face :tag "Blue style" pulsar-blue)
-                        (face :tag "Magenta style" pulsar-magenta)
-                        (face :tag "Cyan style" pulsar-cyan)
-                        (face :tag "Other face (must have a background)")))
+  "Face to indicate non-destructive region changes."
+  :type pulsar--face-with-default-and-choice-widget
+  :package-version '(pulsar . "1.2.0")
+  :group 'pulsar)
+
+(defcustom pulsar-region-change-face 'pulsar-face
+  "Face to indicate destructive region changes."
+  :type pulsar--face-with-default-and-choice-widget
+  :package-version '(pulsar . "1.2.0")
+  :group 'pulsar)
+
+(defcustom pulsar-window-change-face 'pulsar-face
+  "Face to indicate the current position on window changes."
+  :type pulsar--face-with-default-and-choice-widget
   :package-version '(pulsar . "1.2.0")
   :group 'pulsar)
 
@@ -338,6 +361,8 @@ With optional FACE, use it instead of `pulsar-face'.
 
 With optional START and END, highlight the region in-between
 instead of the current line."
+  (when (and (numberp start) (numberp end) (= start end)) ; pulse the whole line if start=end
+    (setq start nil end nil))
   (let* ((pulse-flag (if no-pulse nil pulsar-pulse))
          (pulse-delay pulsar-delay)
          (pulse-iterations pulsar-iterations)
@@ -384,10 +409,7 @@ pulse effect."
         ;;           end (progn (move-to-column endcol) (point))))
         ;;   (pulsar--pulse nil nil beg end)))
         (pulsar--pulse nil pulsar-region-face beg end))
-    (when (mark)
-      (let ((beg (mark))
-            (end (point)))
-        (pulsar--pulse nil pulsar-region-face beg end)))))
+    (pulsar--pulse nil pulsar-region-face)))
 
 ;;;###autoload
 (defun pulsar-highlight-line ()
@@ -477,7 +499,7 @@ For lines, do the same as `pulsar-highlight-line'."
   (cond
    ((bound-and-true-p rectangle-mark-mode)
     (pulsar--highlight-rectangle))
-   ((use-region-p)
+   ((region-active-p)
     (pulsar--pulse :no-pulse pulsar-highlight-face (region-beginning) (region-end)))
    (t
     (pulsar--pulse :no-pulse pulsar-highlight-face))))
@@ -495,10 +517,15 @@ Also check `pulsar-global-mode'."
         (when pulsar-resolve-pulse-function-aliases
           (pulsar-resolve-function-aliases))
         (add-hook 'post-command-hook #'pulsar--post-command-pulse nil 'local)
+        (when pulsar-pulse-region
+          (add-hook 'after-change-functions #'pulsar--after-change-function nil 'local))
         (when pulsar-pulse-on-window-change
-          (add-hook 'window-state-change-functions #'pulsar--pulse-on-window-change nil 'local)))
+          (add-hook 'window-buffer-change-functions #'pulsar--pulse-on-window-change nil 'local)
+          (add-hook 'window-selection-change-functions #'pulsar--pulse-on-window-change nil 'local)))
     (remove-hook 'post-command-hook #'pulsar--post-command-pulse 'local)
-    (remove-hook 'window-state-change-functions #'pulsar--pulse-on-window-change 'local)))
+    (remove-hook 'after-change-functions #'pulsar--after-change-function 'local)
+    (remove-hook 'window-buffer-change-functions #'pulsar--pulse-on-window-change 'local)
+    (remove-hook 'window-selection-change-functions #'pulsar--pulse-on-window-change 'local)))
 
 (defun pulsar--on ()
   "Enable `pulsar-mode'."
@@ -511,32 +538,69 @@ Also check `pulsar-global-mode'."
 ;;;###autoload
 (define-globalized-minor-mode pulsar-global-mode pulsar-mode pulsar--on)
 
-(defun pulsar--pulse-on-window-change (&rest _)
-  "Run `pulsar-pulse-line' on window change."
-  (when (and pulsar-pulse-on-window-change
+(defun pulsar--pulse-on-window-change (window)
+  "Run `pulsar-pulse-line' on WINDOW change."
+  (when (and pulsar-mode
+             pulsar-pulse-on-window-change
+             (eq (frame-selected-window) window)
              (not (minibufferp))
-             (or pulsar-mode pulsar-global-mode))
-    (pulsar-pulse-line)))
+             ;; Avoid double pulsing when both
+             ;; pulsar-pulse-on-window-change and
+             ;; pulsar-pulse-functions are in effect.
+             (not (memq this-command pulsar-pulse-functions))
+             (not (memq real-this-command pulsar-pulse-functions)))
+    (pulsar--pulse nil pulsar-window-change-face)))
+
+(defvar-local pulsar--pulse-region-changes nil)
+
+;; This feature is heavily inspired by Daniel Mendler's `goggles' package.
+(defun pulsar--after-change-function (beg end len)
+  "Provide `after-change-functions' hook to accumulate buffer edits.
+Changes are defined by BEG, END, LEN:
+
+- BEG and END mark the region of text.
+- LEN is zero for insertions.
+- LEN is the extent of deletions and BEG==END."
+  (when (or (memq this-command pulsar-pulse-region-functions)
+            (memq real-this-command pulsar-pulse-region-functions))
+    (when (and (zerop len) (= beg end)) ; In case of a deletion
+      (when (> beg (buffer-size))
+        (setq beg (1- beg)))
+      (setq end (1+ beg)))
+    (push (cons (copy-marker beg) (copy-marker end)) pulsar--pulse-region-changes)))
 
 (defun pulsar--post-command-pulse ()
-  "Run `pulsar-pulse-line' or pulse the region for registered functions."
-  (when (or pulsar-mode pulsar-global-mode)
+  "Pulse current line, accumulated edits, or selected region."
+  (when pulsar-mode
     (cond
      ((or (memq this-command pulsar-pulse-functions)
           (memq real-this-command pulsar-pulse-functions))
       (pulsar-pulse-line))
-     ((or (memq this-command pulsar-pulse-region-functions)
-          (memq real-this-command pulsar-pulse-region-functions))
+     ;; Extract the outer limits of the affected region from
+     ;; accumulated changes. NOTE: Non-contiguous regions such as
+     ;; rectangles will pulse their contiguous bounds.
+     ((and pulsar-pulse-region
+           pulsar--pulse-region-changes)
+      (let ((beg (apply #'min (mapcar #'car pulsar--pulse-region-changes)))
+            (end (apply #'max (mapcar #'cdr pulsar--pulse-region-changes))))
+        (setq pulsar--pulse-region-changes nil)
+        (pulsar--pulse nil pulsar-region-change-face beg end)))
+     ;; Pulse the selected region for commands that did not cause
+     ;; buffer changes; e.g., kill-ring-save.
+     ((and pulsar-pulse-region
+           (or (memq this-command pulsar-pulse-region-functions)
+               (memq real-this-command pulsar-pulse-functions)))
       (pulsar-pulse-region)))))
 
 (make-obsolete 'pulsar-setup nil "0.3.0")
 
-;; Lifted from Emacs 30 to allow pulsar to remain backward compatible
-;; with Emacs earlier than Emacs 29.1. TODO: Deprecate this at some
-;; point to prefer Emacs core.
+;; TODO 2024-11-26: Deprecate this at some point to prefer Emacs core.
 (defun pulsar--function-alias-p (func &optional _noerror)
   "Return nil if FUNC is not a function alias.
-If FUNC is a function alias, return the function alias chain."
+If FUNC is a function alias, return the function alias chain.
+
+This is a copy of `function-alias-p' for backward-compatibility and will
+be deleted from Pulsar in future versions of Emacs."
   (declare (advertised-calling-convention (func) "30.1")
            (side-effect-free error-free))
   (let ((chain nil))
@@ -546,10 +610,10 @@ If FUNC is a function alias, return the function alias chain."
       (push func chain))
     (nreverse chain)))
 
-;; This is essentially the inverse of function-alias-p for a list of
-;; function symbols.
 (defun pulsar--find-fn-aliases (fns)
-  "Return a list of aliases for the FNS symbols."
+  "Return a list of aliases for the FNS symbols.
+This is essentially the inverse of `pulsar--function-alias-p' for a list
+of function symbols."
   (let ((aliases))
     (mapatoms (lambda (sym)
                 (when (and
@@ -557,6 +621,12 @@ If FUNC is a function alias, return the function alias chain."
                        (memq (symbol-function sym) fns))
                   (push sym aliases))))
     aliases))
+
+(defun pulsar--find-union (functions)
+  "Find the union of FUNCTIONS and their aliases."
+  (seq-union functions
+             (seq-union (pulsar--find-fn-aliases functions)
+                        (flatten-list (mapcar #'pulsar--function-alias-p functions)))))
 
 (defun pulsar-resolve-function-aliases ()
   "Amend registered functions to respect function aliases.
@@ -567,14 +637,8 @@ when `pulsar-resolve-pulse-function-aliases' is non-nil.
 You may also call this manually in your configuration after setting
 `pulsar-pulse-functions'.  In that case, you would prefer
 `pulsar-resolve-pulse-function-aliases' to be nil."
-  (setq pulsar-pulse-functions
-        (seq-union pulsar-pulse-functions
-                   (seq-union (pulsar--find-fn-aliases pulsar-pulse-functions)
-                              (flatten-list (mapcar (lambda (x) (pulsar--function-alias-p x)) pulsar-pulse-functions)))))
-  (setq pulsar-pulse-region-functions
-        (seq-union pulsar-pulse-region-functions
-                   (seq-union (pulsar--find-fn-aliases pulsar-pulse-region-functions)
-                              (flatten-list (mapcar (lambda (x) (pulsar--function-alias-p x)) pulsar-pulse-region-functions))))))
+  (setq pulsar-pulse-functions (pulsar--find-union pulsar-pulse-functions))
+  (setq pulsar-pulse-region-functions (pulsar--find-union pulsar-pulse-region-functions)))
 
 ;;;; Recentering commands
 

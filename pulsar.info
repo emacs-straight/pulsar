@@ -1,4 +1,4 @@
-This is docLZMgs3.info, produced by makeinfo version 6.8 from
+This is docyGz8yi.info, produced by makeinfo version 6.8 from
 pulsar.texi.
 
 Copyright (C) 2022-2024 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docLZMgs3.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docyGz8yi.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 pulsar.el: Pulse highlight line on demand or after running select functions
 ***************************************************************************
@@ -92,7 +92,7 @@ Indices
 
 
 
-File: docLZMgs3.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docyGz8yi.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -172,7 +172,7 @@ Luminates, Strictly Absent the Radiation”.
 * Convenience functions::
 
 
-File: docLZMgs3.info,  Node: Convenience functions,  Up: Overview
+File: docyGz8yi.info,  Node: Convenience functions,  Up: Overview
 
 1.1 Convenience functions
 =========================
@@ -199,7 +199,7 @@ the user’s convenience:
 binding, or be incorporated in custom functions.
 
 
-File: docLZMgs3.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docyGz8yi.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -210,7 +210,7 @@ File: docLZMgs3.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: docLZMgs3.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docyGz8yi.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -229,7 +229,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: docLZMgs3.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docyGz8yi.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -256,7 +256,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: docLZMgs3.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
+File: docyGz8yi.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -302,7 +302,7 @@ Remember to read the doc string of each of these variables.
 * Use pulsar in the minibuffer::
 
 
-File: docLZMgs3.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
+File: docyGz8yi.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
 
 3.1 Use pulsar with next-error
 ==============================
@@ -317,7 +317,7 @@ Pulsar-level solution that “just works”:
      (add-hook 'next-error-hook #'pulsar-pulse-line)
 
 
-File: docLZMgs3.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
+File: docyGz8yi.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
 
 3.2 Use pulsar in the minibuffer
 ================================
@@ -339,7 +339,7 @@ applied by default.  For example:
      (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
 
 
-File: docLZMgs3.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
+File: docyGz8yi.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
 
 4 Integration with other packages
 *********************************
@@ -366,7 +366,7 @@ the aforementioned recentering functions.
      (add-hook 'imenu-after-jump-hook #'pulsar-reveal-entry)
 
 
-File: docLZMgs3.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
+File: docyGz8yi.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
 
 5 Acknowledgements
 ******************
@@ -377,9 +377,9 @@ Author/maintainer
      Protesilaos Stavrou.
 
 Contributions to the code or manual
-     Aymeric Agon-Rambosson, Bahman Movaqar, Daniel Mendler, Ivan
-     Popovych, JD Smith, Maxim Dunaevsky, Ryan Kaskel, shipmints,
-     ukiran03.
+     Abdelhak Bougouffa, Aymeric Agon-Rambosson, Bahman Movaqar, Daniel
+     Mendler, Ivan Popovych, JD Smith, Maxim Dunaevsky, Ryan Kaskel,
+     shipmints, ukiran03.
 
 Ideas and user feedback
      Anwesh Gangula, Diego Alvarez, Duy Nguyen, Mark Barton, Petter
@@ -387,7 +387,7 @@ Ideas and user feedback
      kb.
 
 
-File: docLZMgs3.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docyGz8yi.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -869,7 +869,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: docLZMgs3.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docyGz8yi.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -881,7 +881,7 @@ B Indices
 * Concept index::
 
 
-File: docLZMgs3.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docyGz8yi.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -919,7 +919,7 @@ B.1 Function index
                                                                (line 13)
 
 
-File: docLZMgs3.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docyGz8yi.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -937,7 +937,7 @@ B.2 Variable index
 * pulse-pulse-functions:                 Overview.             (line  6)
 
 
-File: docLZMgs3.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docyGz8yi.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -965,11 +965,11 @@ Node: Use pulsar with next-error10624
 Node: Use pulsar in the minibuffer11279
 Node: Integration with other packages12148
 Node: Acknowledgements13197
-Node: GNU Free Documentation License13851
-Node: Indices39212
-Node: Function index39388
-Node: Variable index41527
-Node: Concept index42278
+Node: GNU Free Documentation License13871
+Node: Indices39232
+Node: Function index39408
+Node: Variable index41547
+Node: Concept index42298
 
 End Tag Table
 
