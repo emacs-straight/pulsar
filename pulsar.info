@@ -1,4 +1,4 @@
-This is docOakybr.info, produced by makeinfo version 6.8 from
+This is docVAgCNG.info, produced by makeinfo version 6.8 from
 pulsar.texi.
 
 Copyright (C) 2022-2024 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docOakybr.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docVAgCNG.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 pulsar.el: Pulse highlight line on demand or after running select functions
 ***************************************************************************
@@ -92,7 +92,7 @@ Indices
 
 
 
-File: docOakybr.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docVAgCNG.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -169,7 +169,7 @@ Luminates, Strictly Absent the Radiation”.
 * Convenience functions::
 
 
-File: docOakybr.info,  Node: Convenience functions,  Up: Overview
+File: docVAgCNG.info,  Node: Convenience functions,  Up: Overview
 
 1.1 Convenience functions
 =========================
@@ -196,7 +196,7 @@ the user’s convenience:
 binding, or be incorporated in custom functions.
 
 
-File: docOakybr.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docVAgCNG.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -207,7 +207,7 @@ File: docOakybr.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: docOakybr.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docVAgCNG.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -226,7 +226,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: docOakybr.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docVAgCNG.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -253,7 +253,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: docOakybr.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
+File: docVAgCNG.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -299,7 +299,7 @@ Remember to read the doc string of each of these variables.
 * Use pulsar in the minibuffer::
 
 
-File: docOakybr.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
+File: docVAgCNG.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
 
 3.1 Use pulsar with next-error
 ==============================
@@ -314,7 +314,7 @@ Pulsar-level solution that “just works”:
      (add-hook 'next-error-hook #'pulsar-pulse-line)
 
 
-File: docOakybr.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
+File: docVAgCNG.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
 
 3.2 Use pulsar in the minibuffer
 ================================
@@ -336,7 +336,7 @@ applied by default.  For example:
      (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
 
 
-File: docOakybr.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
+File: docVAgCNG.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
 
 4 Integration with other packages
 *********************************
@@ -363,7 +363,7 @@ the aforementioned recentering functions.
      (add-hook 'imenu-after-jump-hook #'pulsar-reveal-entry)
 
 
-File: docOakybr.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
+File: docVAgCNG.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
 
 5 Acknowledgements
 ******************
@@ -379,12 +379,12 @@ Contributions to the code or manual
      shipmints, ukiran03.
 
 Ideas and user feedback
-     Anwesh Gangula, Diego Alvarez, Duy Nguyen, Mark Barton, Petter
-     Storvik, Ronny Randen, Rudolf Adamkovič, Toon Claes, and users djl,
-     kb.
+     Anwesh Gangula, Diego Alvarez, Duy Nguyen, Matthias Meulien, Mark
+     Barton, Petter Storvik, Ronny Randen, Rudolf Adamkovič, Toon Claes,
+     and users djl, kb.
 
 
-File: docOakybr.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docVAgCNG.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -866,7 +866,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: docOakybr.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docVAgCNG.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -878,7 +878,7 @@ B Indices
 * Concept index::
 
 
-File: docOakybr.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docVAgCNG.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -916,7 +916,7 @@ B.1 Function index
                                                                (line 13)
 
 
-File: docOakybr.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docVAgCNG.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -934,7 +934,7 @@ B.2 Variable index
 * pulse-pulse-functions:                 Overview.             (line  6)
 
 
-File: docOakybr.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docVAgCNG.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -962,11 +962,11 @@ Node: Use pulsar with next-error10455
 Node: Use pulsar in the minibuffer11110
 Node: Integration with other packages11979
 Node: Acknowledgements13028
-Node: GNU Free Documentation License13702
-Node: Indices39063
-Node: Function index39239
-Node: Variable index41378
-Node: Concept index42129
+Node: GNU Free Documentation License13720
+Node: Indices39081
+Node: Function index39257
+Node: Variable index41396
+Node: Concept index42147
 
 End Tag Table
 
