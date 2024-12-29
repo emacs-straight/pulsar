@@ -1,4 +1,4 @@
-This is doc3zHk5N.info, produced by makeinfo version 6.8 from
+This is docSXub1s.info, produced by makeinfo version 6.8 from
 pulsar.texi.
 
 Copyright (C) 2022-2024 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: doc3zHk5N.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docSXub1s.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 pulsar.el: Pulse highlight line on demand or after running select functions
 ***************************************************************************
@@ -92,7 +92,7 @@ Indices
 
 
 
-File: doc3zHk5N.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docSXub1s.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -169,7 +169,7 @@ Luminates, Strictly Absent the Radiation”.
 * Convenience functions::
 
 
-File: doc3zHk5N.info,  Node: Convenience functions,  Up: Overview
+File: docSXub1s.info,  Node: Convenience functions,  Up: Overview
 
 1.1 Convenience functions
 =========================
@@ -196,7 +196,7 @@ the user’s convenience:
 binding, or be incorporated in custom functions.
 
 
-File: doc3zHk5N.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docSXub1s.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -207,7 +207,7 @@ File: doc3zHk5N.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: doc3zHk5N.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docSXub1s.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -226,7 +226,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: doc3zHk5N.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docSXub1s.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -253,7 +253,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: doc3zHk5N.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
+File: docSXub1s.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -299,7 +299,7 @@ Remember to read the doc string of each of these variables.
 * Use pulsar in the minibuffer::
 
 
-File: doc3zHk5N.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
+File: docSXub1s.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
 
 3.1 Use pulsar with next-error
 ==============================
@@ -314,7 +314,7 @@ Pulsar-level solution that “just works”:
      (add-hook 'next-error-hook #'pulsar-pulse-line)
 
 
-File: doc3zHk5N.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
+File: docSXub1s.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
 
 3.2 Use pulsar in the minibuffer
 ================================
@@ -336,7 +336,7 @@ applied by default.  For example:
      (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
 
 
-File: doc3zHk5N.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
+File: docSXub1s.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
 
 4 Integration with other packages
 *********************************
@@ -363,7 +363,7 @@ the aforementioned recentering functions.
      (add-hook 'imenu-after-jump-hook #'pulsar-reveal-entry)
 
 
-File: doc3zHk5N.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
+File: docSXub1s.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
 
 5 Acknowledgements
 ******************
@@ -384,7 +384,7 @@ Ideas and user feedback
      and users djl, kb.
 
 
-File: doc3zHk5N.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docSXub1s.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -866,7 +866,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: doc3zHk5N.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docSXub1s.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -878,7 +878,7 @@ B Indices
 * Concept index::
 
 
-File: doc3zHk5N.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docSXub1s.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -916,7 +916,7 @@ B.1 Function index
                                                                (line 13)
 
 
-File: doc3zHk5N.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docSXub1s.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -934,7 +934,7 @@ B.2 Variable index
 * pulse-pulse-functions:                 Overview.             (line  6)
 
 
-File: doc3zHk5N.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docSXub1s.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
