@@ -1,7 +1,7 @@
-This is docZzsIQt.info, produced by makeinfo version 6.8 from
+This is docWTHQTR.info, produced by makeinfo version 6.8 from
 pulsar.texi.
 
-Copyright (C) 2022-2024 Free Software Foundation, Inc.
+Copyright (C) 2022-2025 Free Software Foundation, Inc.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -20,12 +20,12 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docZzsIQt.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docWTHQTR.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 pulsar.el: Pulse highlight line on demand or after running select functions
 ***************************************************************************
 
-Copyright (C) 2022-2024 Free Software Foundation, Inc.
+Copyright (C) 2022-2025 Free Software Foundation, Inc.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -92,7 +92,7 @@ Indices
 
 
 
-File: docZzsIQt.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docWTHQTR.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -140,25 +140,44 @@ the various buffer-switching commands.  When this user option is nil,
 
    To highlight the current line on demand, use the ‘pulsar-pulse-line’
 command.  When ‘pulsar-pulse’ is non-nil (the default), its highlight
-will pulse before fading away.  Whereas the ‘pulsar-highlight-line’
-command never pulses the line: the highlight stays in place as if
-‘pulsar-pulse’ is nil.
+will pulse before fading away.  Whereas the
+‘pulsar-highlight-line-temporarily’ command never pulses the line: the
+highlight stays in place and is static (as if ‘pulsar-pulse’ is ‘nil’)
+and is removed when the point moves.
 
    The command ‘pulsar-pulse-region’ pulses the active region.  The
 effect of the pulse is controlled by the aforementioned user options,
 namely, ‘pulsar-delay’, ‘pulsar-iterations’, ‘pulsar-face’.
 
-   A do-what-I-mean command is also on offer: ‘pulsar-highlight-dwim’.
-It highlights the current line line like ‘pulsar-highlight-line’.  If
-the region is active, it applies its effect there.  The region may also
-be a rectangle (internally they differ from ordinary regions).
+   For temporary static highlights, a do-what-I-mean command is also on
+offer: ‘pulsar-highlight-temporarily-dwim’.  It temporarily highlights
+the current line line like ‘pulsar-highlight-line-temporarily~’.  If the
+region is active, it applies its effect there.  The region may also be a
+rectangle (internally they differ from ordinary regions).
 
-   To help users differentiate between the pulse and highlight effects,
-the user option ‘pulsar-highlight-face’ controls the presentation of the
-‘pulsar-highlight-line’ and ‘pulsar-highlight-dwim’ commands.  By
-default, this variable is the same as ‘pulsar-face’.
+   The command ‘pulsar-highlight-permanently’ adds a permanent static
+highlight to the current line.  The effect stays in place even after the
+point moves.  When the region is active, the highlight is applied from
+the beginning to the end of the region.  Otherwise the highlight is
+applied to the current line.  [ The command
+‘pulsar-highlight-permanently’ is part of 1.3.0-dev.  ]
 
-   Pulsar depends on the built-in ‘pulse.el’ library.
+   The command ‘pulsar-highlight-permanently-remove’ removes permanent
+static highlights from the active region or current line.  This command
+operates on the entire buffer when it is called with a universal prefix
+argument (‘C-u’ by default).  [ The command
+‘pulsar-highlight-permanently-remove’ is part of 1.3.0-dev.  ]
+
+   The command ‘pulsar-highlight-permanently-dwim’ adds a permanent
+static highlight if there is none or removes it if there is one.  It
+operates on the currently active region or line at point.  [ The command
+‘pulsar-highlight-permanently-dwim’ is part of 1.3.0-dev.  ]
+
+   The user option ‘pulsar-highlight-face’ controls which face is used
+for static highlight (temporary or permanent).  By default, it is the
+same as the ‘pulsar-face’, which is for pulse effects, but can be
+assigned to a different face to help differentiate pulses from static
+highlights.
 
    Why the name “pulsar”?  It sounds like “pulse” and is a recognisable
 word.  Though if you need a backronym, consider “Pulsar Unquestionably
@@ -169,7 +188,7 @@ Luminates, Strictly Absent the Radiation”.
 * Convenience functions::
 
 
-File: docZzsIQt.info,  Node: Convenience functions,  Up: Overview
+File: docWTHQTR.info,  Node: Convenience functions,  Up: Overview
 
 1.1 Convenience functions
 =========================
@@ -196,7 +215,7 @@ the user’s convenience:
 binding, or be incorporated in custom functions.
 
 
-File: docZzsIQt.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docWTHQTR.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -207,7 +226,7 @@ File: docZzsIQt.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: docZzsIQt.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docWTHQTR.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -226,7 +245,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: docZzsIQt.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docWTHQTR.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -253,7 +272,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: docZzsIQt.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
+File: docWTHQTR.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -299,7 +318,7 @@ Remember to read the doc string of each of these variables.
 * Use pulsar in the minibuffer::
 
 
-File: docZzsIQt.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
+File: docWTHQTR.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
 
 3.1 Use pulsar with next-error
 ==============================
@@ -314,7 +333,7 @@ Pulsar-level solution that “just works”:
      (add-hook 'next-error-hook #'pulsar-pulse-line)
 
 
-File: docZzsIQt.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
+File: docWTHQTR.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
 
 3.2 Use pulsar in the minibuffer
 ================================
@@ -336,7 +355,7 @@ applied by default.  For example:
      (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
 
 
-File: docZzsIQt.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
+File: docWTHQTR.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
 
 4 Integration with other packages
 *********************************
@@ -363,7 +382,7 @@ the aforementioned recentering functions.
      (add-hook 'imenu-after-jump-hook #'pulsar-reveal-entry)
 
 
-File: docZzsIQt.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
+File: docWTHQTR.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
 
 5 Acknowledgements
 ******************
@@ -384,7 +403,7 @@ Ideas and user feedback
      and users djl, kb.
 
 
-File: docZzsIQt.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docWTHQTR.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -866,7 +885,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: docZzsIQt.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docWTHQTR.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -878,7 +897,7 @@ B Indices
 * Concept index::
 
 
-File: docZzsIQt.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docWTHQTR.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -887,8 +906,11 @@ B.1 Function index
 * Menu:
 
 * pulsar-global-mode:                    Overview.             (line  6)
-* pulsar-highlight-dwim:                 Overview.             (line 57)
-* pulsar-highlight-line:                 Overview.             (line 47)
+* pulsar-highlight-line-temporarily:     Overview.             (line 47)
+* pulsar-highlight-permanently:          Overview.             (line 64)
+* pulsar-highlight-permanently-dwim:     Overview.             (line 77)
+* pulsar-highlight-permanently-remove:   Overview.             (line 71)
+* pulsar-highlight-temporarily-dwim:     Overview.             (line 58)
 * pulsar-mode:                           Overview.             (line  6)
 * pulsar-pulse-line:                     Overview.             (line 47)
 * pulsar-pulse-line-blue:                Convenience functions.
@@ -904,7 +926,7 @@ B.1 Function index
 * pulsar-pulse-line-yellow:              Convenience functions.
                                                                (line 16)
 * pulsar-pulse-on-window-change:         Overview.             (line 26)
-* pulsar-pulse-region:                   Overview.             (line 53)
+* pulsar-pulse-region:                   Overview.             (line 54)
 * pulsar-pulse-region-functions:         Overview.             (line 20)
 * pulsar-recenter-center:                Integration with other packages.
                                                                (line  9)
@@ -916,7 +938,7 @@ B.1 Function index
                                                                (line 13)
 
 
-File: docZzsIQt.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docWTHQTR.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -926,7 +948,7 @@ B.2 Variable index
 
 * pulsar-delay:                          Overview.             (line 31)
 * pulsar-face:                           Overview.             (line 31)
-* pulsar-highlight-face:                 Overview.             (line 62)
+* pulsar-highlight-face:                 Overview.             (line 82)
 * pulsar-inhibit-hidden-buffers:         Overview.             (line 41)
 * pulsar-iterations:                     Overview.             (line 31)
 * pulsar-pulse:                          Overview.             (line 37)
@@ -934,7 +956,7 @@ B.2 Variable index
 * pulse-pulse-functions:                 Overview.             (line  6)
 
 
-File: docZzsIQt.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docWTHQTR.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -953,20 +975,20 @@ B.3 Concept index
 Tag Table:
 Node: Top872
 Node: Overview3036
-Node: Convenience functions6727
-Node: Installation7519
-Node: GNU ELPA package7706
-Node: Manual installation8267
-Node: Sample configuration9036
-Node: Use pulsar with next-error10455
-Node: Use pulsar in the minibuffer11110
-Node: Integration with other packages11979
-Node: Acknowledgements13028
-Node: GNU Free Documentation License13720
-Node: Indices39081
-Node: Function index39257
-Node: Variable index41396
-Node: Concept index42147
+Node: Convenience functions7832
+Node: Installation8624
+Node: GNU ELPA package8811
+Node: Manual installation9372
+Node: Sample configuration10141
+Node: Use pulsar with next-error11560
+Node: Use pulsar in the minibuffer12215
+Node: Integration with other packages13084
+Node: Acknowledgements14133
+Node: GNU Free Documentation License14825
+Node: Indices40186
+Node: Function index40362
+Node: Variable index42720
+Node: Concept index43471
 
 End Tag Table
 

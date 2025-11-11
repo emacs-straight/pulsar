@@ -50,7 +50,7 @@ Table of Contents
 1 COPYING
 ═════════
 
-  Copyright (C) 2022-2024 Free Software Foundation, Inc.
+  Copyright (C) 2022-2025 Free Software Foundation, Inc.
 
         Permission is granted to copy, distribute and/or modify
         this document under the terms of the GNU Free
@@ -111,25 +111,44 @@ Table of Contents
 
   To highlight the current line on demand, use the `pulsar-pulse-line'
   command.  When `pulsar-pulse' is non-nil (the default), its highlight
-  will pulse before fading away.  Whereas the `pulsar-highlight-line'
-  command never pulses the line: the highlight stays in place as if
-  `pulsar-pulse' is nil.
+  will pulse before fading away.  Whereas the
+  `pulsar-highlight-line-temporarily' command never pulses the line: the
+  highlight stays in place and is static (as if `pulsar-pulse' is `nil')
+  and is removed when the point moves.
 
   The command `pulsar-pulse-region' pulses the active region. The effect
   of the pulse is controlled by the aforementioned user options, namely,
   `pulsar-delay', `pulsar-iterations', `pulsar-face'.
 
-  A do-what-I-mean command is also on offer: `pulsar-highlight-dwim'.
-  It highlights the current line line like `pulsar-highlight-line'.  If
-  the region is active, it applies its effect there.  The region may
-  also be a rectangle (internally they differ from ordinary regions).
+  For temporary static highlights, a do-what-I-mean command is also on
+  offer: `pulsar-highlight-temporarily-dwim'. It temporarily highlights
+  the current line line like `pulsar-highlight-line-temporarily~'. If
+  the region is active, it applies its effect there. The region may also
+  be a rectangle (internally they differ from ordinary regions).
 
-  To help users differentiate between the pulse and highlight effects,
-  the user option `pulsar-highlight-face' controls the presentation of
-  the `pulsar-highlight-line' and `pulsar-highlight-dwim' commands.  By
-  default, this variable is the same as `pulsar-face'.
+  The command `pulsar-highlight-permanently' adds a permanent static
+  highlight to the current line. The effect stays in place even after
+  the point moves. When the region is active, the highlight is applied
+  from the beginning to the end of the region. Otherwise the highlight
+  is applied to the current line. [ The command
+  `pulsar-highlight-permanently' is part of 1.3.0-dev. ]
 
-  Pulsar depends on the built-in `pulse.el' library.
+  The command `pulsar-highlight-permanently-remove' removes permanent
+  static highlights from the active region or current line. This command
+  operates on the entire buffer when it is called with a universal
+  prefix argument (`C-u' by default). [ The command
+  `pulsar-highlight-permanently-remove' is part of 1.3.0-dev. ]
+
+  The command `pulsar-highlight-permanently-dwim' adds a permanent
+  static highlight if there is none or removes it if there is one. It
+  operates on the currently active region or line at point. [ The
+  command `pulsar-highlight-permanently-dwim' is part of 1.3.0-dev. ]
+
+  The user option `pulsar-highlight-face' controls which face is used
+  for static highlight (temporary or permanent). By default, it is the
+  same as the `pulsar-face', which is for pulse effects, but can be
+  assigned to a different face to help differentiate pulses from static
+  highlights.
 
   Why the name “pulsar”?  It sounds like “pulse” and is a recognisable
   word.  Though if you need a backronym, consider “Pulsar Unquestionably
