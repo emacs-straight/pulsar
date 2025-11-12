@@ -15,5 +15,5 @@ File: dir,	Node: Top	This is the top of the INFO tree
 * Menu:
 
 Emacs misc features
-* Pulsar: (pulsar).             Pulse highlight line on demand or after 
-                                  running select functions.
+* Pulsar: (pulsar).             Highlight line automatically after some change 
+                                  or on demand.

@@ -26,9 +26,11 @@
 
 ;;; Commentary:
 ;;
-;; This is a small package that temporarily highlights the current
-;; line after a given function is invoked.  Consult the official
-;; manual for the technicalities.
+;; This is a small Emacs package that automatically highlights the
+;; current line after certain functions are invoked.  It can also
+;; highlight a line or region on demand.  The idea is to make it
+;; easier to find where the point is, what was affected, and also to
+;; bring attention to something in a buffer.
 ;;
 ;; Why the name "pulsar"?  It sounds like "pulse" and is a
 ;; recognisable word.  Though if you need a backronym, consider
@@ -45,13 +47,7 @@ Extension of `pulse.el'."
 
 ;;;; User options
 
-(defcustom pulsar-pulse t
-  "When non-nil enable pulsing.
-Otherwise the highlight stays on the current line until another
-command is invoked."
-  :type 'boolean
-  :package-version '(pulsar . "0.2.0")
-  :group 'pulsar)
+(make-obsolete-variable 'pulsar-pulse nil "1.3.0")
 
 (defcustom pulsar-delay 0.05
   "Delay between increments of a pulse.
@@ -116,6 +112,7 @@ pulse.  Only applies when `pulsar-pulse' is non-nil."
     outline-up-heading
     previous-buffer
     previous-error
+    quit-window
     recenter-top-bottom
     reposition-window
     scroll-down-command
@@ -140,7 +137,12 @@ This only takes effect when `pulsar-mode' (buffer-local) or
   :package-version '(pulsar . "1.1.0")
   :group 'pulsar)
 
-(defvar pulsar-pulse-region-common-functions
+(make-obsolete-variable
+ 'pulsar-pulse-region-common-functions
+ "the list of functions it defined is now the default for `pulsar-pulse-region-functions'"
+ "1.3.0")
+
+(defcustom pulsar-pulse-region-functions
   '(append-next-kill
     delete-region
     kill-line
@@ -157,9 +159,6 @@ This only takes effect when `pulsar-mode' (buffer-local) or
     undo
     yank
     yank-rectangle)
-  "Common functions that can be used for `pulsar-pulse-region-functions'.")
-
-(defcustom pulsar-pulse-region-functions nil
   "Functions that highlight the affected region after invocation.
 When the value is nil, no pulsing is in effect.  Otherwise, the value is
 a list of functions that operate on the region.  It can be, for example,
@@ -235,14 +234,14 @@ background attribute."
 
 (defcustom pulsar-highlight-face 'pulsar-face
   "Face used by temporary or permanent static highlights.
-These are done by commands such as `pulsar-highlight-line-temporarily'
+These are done by commands such as `pulsar-highlight-temporarily'
 and `pulsar-highlight-permanently'."
   :type pulsar--face-with-default-and-choice-widget
   :package-version '(pulsar . "1.3.0")
   :group 'pulsar)
 
 (defcustom pulsar-region-face pulsar-face
-  "Face to pulse a region that has not changed."
+  "Face to pulse a region that has note changed."
   :type pulsar--face-with-default-and-choice-widget
   :package-version '(pulsar . "1.2.0")
   :group 'pulsar)
@@ -369,175 +368,80 @@ default completion setup)."
       (line-beginning-position 1)
     (line-beginning-position 2)))
 
-(defun pulsar--pulse (&optional no-pulse face start end)
-  "Highlight the current line.
-With optional NO-PULSE keep the highlight until another command
-is invoked.  Otherwise use whatever `pulsar-pulse' entails.
+(defun pulsar--get-line-boundaries ()
+  "Return cons cell of line beginning and end positions.
+If possible, make the end be 1+ its value, so that the highlight can be
+extended to the edge of the window."
+  (cons (pulsar--start) (pulsar--end)))
 
-With optional FACE, use it instead of `pulsar-face'.
+(defun pulsar--get-region-boundaries ()
+  "Return cons cell with region boundaries."
+  (cons (region-beginning) (region-end)))
 
-With optional START and END, highlight the region in-between
-instead of the current line."
-  (when (and (numberp start) (numberp end) (= start end)) ; pulse the whole line if start=end
-    (setq start nil end nil))
-  (let* ((pulse-flag (if no-pulse nil pulsar-pulse))
-         (pulse-delay pulsar-delay)
-         (pulse-iterations pulsar-iterations)
-         (f (if (facep face) face pulsar-face))
-         (o (make-overlay (or start (pulsar--start)) (or end (pulsar--end)))))
-    (overlay-put o 'pulse-delete t)
-    (overlay-put o 'window (frame-selected-window))
-    (pulse-momentary-highlight-overlay o f)))
+(defun pulsar--get-line-or-region-boundaries ()
+  "Return cons cell of the active region boundaries or current line."
+  (if (region-active-p)
+      (pulsar--get-region-boundaries)
+    (pulsar--get-line-boundaries)))
 
-;; TODO 2025-11-10: Make `pulsar-pulse-line' and `pulsar-pulse-region'
-;; and related accept a LOCUS argument like I do now with
-;; `pulsar-highlight-permanently' and friends.
+(defun pulsar--create-pulse (locus face)
+  "Create a pulse spanning the LOCUS using FACE.
+LOCUS is a cons cell with two buffer positions."
+  (let ((pulse-delay pulsar-delay)
+        (pulse-iterations pulsar-iterations)
+        (overlay (make-overlay (car locus) (cdr locus))))
+    (overlay-put overlay 'pulse-delete t)
+    (overlay-put overlay 'window (frame-selected-window))
+    (pulse-momentary-highlight-overlay overlay face)))
+
+(define-obsolete-function-alias
+  'pulsar-pulse-region
+  'pulsar-highlight-pulse
+  "1.3.0")
 
 ;;;###autoload
 (defun pulsar-pulse-line ()
-  "Temporarily highlight the current line.
-When `pulsar-pulse' is non-nil (the default) make the highlight
-pulse before fading away.  The pulse effect is controlled by
-`pulsar-delay' and `pulsar-iterations'.
-
-Also see `pulsar-highlight-line-temporarily' for a highlight without the
-pulse effect.  Alternatives are `pulsar-highlight-permanently' and
-related."
+  "Create a pulse highlight for the current line.
+Also see `pulsar-highlight-pulse'."
   (interactive)
-  (pulsar--pulse))
+  (pulsar--create-pulse (pulsar--get-line-boundaries) pulsar-face))
 
 ;;;###autoload
-(defun pulsar-pulse-region ()
-  "Temporarily highlight the active region if any."
-  (interactive)
-  (if (region-active-p)
-      (let ((beg (region-beginning))
-            (end (region-end)))
-        ;; FIXME 2024-08-29: Finding the lines and columns therein
-        ;; does not work because consecutive pulses cancel each
-        ;; other out, leaving only the last one active.
-        ;;
-        ;; (let* ((columns (rectangle--pos-cols beg end))
-        ;;        (begcol (car columns))
-        ;;        (endcol (cdr columns)))
-        ;;    (lines (list
-        ;;            (line-number-at-pos beg)
-        ;;            (line-number-at-pos end))))
-        ;; (dolist (line lines)
-        ;;   (save-excursion
-        ;;     (goto-char (point-min))
-        ;;     (forward-line (1- line))
-        ;;     (setq beg (progn (move-to-column begcol) (point))
-        ;;           end (progn (move-to-column endcol) (point))))
-        ;;   (pulsar--pulse nil nil beg end)))
-        (pulsar--pulse nil pulsar-region-face beg end))
-    (pulsar--pulse nil pulsar-region-face)))
+(defun pulsar-highlight-pulse (&optional locus)
+  "Highlight the current LOCUS by pulsing it.
+To pulse is to add a colour and then gradually fade it away.  The pulse
+is subject to `pulsar-delay' and `pulsar-iterations'.
+
+When the region is active, LOCUS covers the region boundaries.
+Otherwise, LOCUS spans the current line.
+
+For highlights without a pulse, see `pulsar-highlight-temporarily' and
+`pulsar-highlight-permanently'."
+  (interactive (list (pulsar--get-line-or-region-boundaries)))
+  (let ((pulse-flag t))
+    (pulsar--create-pulse locus pulsar-face)))
 
 (define-obsolete-function-alias
   'pulsar-highlight-line
-  'pulsar-highlight-line-temporarily
+  'pulsar-highlight-temporarily
   "1.3.0")
 
-;;;###autoload
-(defun pulsar-highlight-line-temporarily ()
-  "Temporarily highlight the current line.
-Unlike `pulsar-pulse-line', never pulse the current line.  Keep
-the highlight in place until another command is invoked.
-
-Use `pulsar-highlight-face' (it is the same as `pulsar-face' by
-default).
-
-For a permanent highlight use `pulsar-highlight-permanently' and
-related."
-  (interactive)
-  (pulsar--pulse :no-pulse pulsar-highlight-face))
-
-;;;;; Convenience functions
-
 (define-obsolete-function-alias
-  'pulsar-pulse-with-face
-  'pulsar-define-pulse-with-face
-  "1.0.0")
-
-;;;###autoload
-(defmacro pulsar-define-pulse-with-face (face)
-  "Produce function to `pulsar--pulse' with FACE.
-If FACE starts with the `pulsar-' prefix, remove it and keep only
-the remaining text.  The assumption is that something like
-`pulsar-red' will be convered to `red', thus deriving a function
-named `pulsar-pulse-line-red'.  Any other FACE is taken as-is."
-  (declare (indent function))
-  (let* ((face-string (symbol-name face))
-         (face-name (if (string-prefix-p "pulsar-" face-string)
-                        (replace-regexp-in-string "pulsar-" "" face-string)
-                      face-string)))
-    `(defun ,(intern (format "pulsar-pulse-line-%s" face-name)) ()
-       ,(format "Like `pulsar-pulse-line' but uses the `%s' face.
-The idea with this is to run it in special hooks or contexts
-where you need a different color than what Pulsar normally
-uses (per the user option `pulsar-face')" face)
-       (interactive)
-       (pulsar--pulse nil ',face))))
-
-(pulsar-define-pulse-with-face pulsar-red)
-(pulsar-define-pulse-with-face pulsar-green)
-(pulsar-define-pulse-with-face pulsar-yellow)
-(pulsar-define-pulse-with-face pulsar-blue)
-(pulsar-define-pulse-with-face pulsar-magenta)
-(pulsar-define-pulse-with-face pulsar-cyan)
-
-;;;;; Highlight region
-
-(defvar-local pulsar--rectangle-face-cookie nil
-  "Cookie of remapped rectangle region face.")
-
-(autoload 'face-remap-remove-relative "face-remap.el")
-
-(defun pulsar--remove-face-remap ()
-  "Remove `pulsar--rectangle-face-cookie'."
-  (when pulsar--rectangle-face-cookie
-    (face-remap-remove-relative pulsar--rectangle-face-cookie)))
-
-(defvar rectangle-mark-mode)
-
-;; When we highlight a region, it gets the `region' face.  The
-;; `pulsar-highlight-dwim' overlays it with `pulsar-highlight-face'
-;; using a standard pulse.el mechanism.  If the user tries to expand the
-;; region further, it gets its original face.  This function ensures
-;; that the rectangle behaves the same way (pulse.el does not handle
-;; rectangular regions).
-(defun pulsar--remove-rectangle-remap ()
-  "Remove face remap from rectangle region when appropriate."
-  (when (and (bound-and-true-p rectangle-mark-mode)
-             (not (eq this-command 'pulsar-highlight-dwim)))
-    (pulsar--remove-face-remap)))
-
-(defun pulsar--highlight-rectangle ()
-  "Remap `region' face and set `pulsar--remove-face-remap'."
-  (setq pulsar--rectangle-face-cookie
-        (face-remap-add-relative 'region pulsar-highlight-face))
-  (add-hook 'post-command-hook #'pulsar--remove-rectangle-remap nil t)
-  (add-hook 'deactivate-mark-hook #'pulsar--remove-face-remap nil t))
-
-(define-obsolete-function-alias
-  'pulsar-highlight-dwim
   'pulsar-highlight-temporarily-dwim
+  'pulsar-highlight-temporarily
   "1.3.0")
 
 ;;;###autoload
-(defun pulsar-highlight-temporarily-dwim ()
-  "Temporarily highlight the current line or active region.
-The region may also be a rectangle.
+(defun pulsar-highlight-temporarily (locus)
+  "Temporarily highlight the current LOCUS.
+Unlike `pulsar-highlight-pulse', never pulse the current line.  Keep the
+highlight in place until another command is invoked.  This is what makes
+the highlight temporary.
 
-For lines, do the same as `pulsar-highlight-line-temporarily'."
-  (interactive)
-  (cond
-   ((bound-and-true-p rectangle-mark-mode)
-    (pulsar--highlight-rectangle))
-   ((region-active-p)
-    (pulsar--pulse :no-pulse pulsar-highlight-face (region-beginning) (region-end)))
-   (t
-    (pulsar--pulse :no-pulse pulsar-highlight-face))))
+For a permanent highlight, see `pulsar-highlight-permanently'."
+  (interactive (list (pulsar--get-line-or-region-boundaries)))
+  (let ((pulse-flag nil))
+    (pulsar--create-pulse locus pulsar-highlight-face)))
 
 ;;;###autoload
 (defun pulsar-highlight-permanently (locus)
@@ -549,13 +453,9 @@ positions corresponding to the beginning and end of the current line.
 Remove the highlight with `pulsar-highlight-permanently-remove' or
 toggle it with `pulsar-highlight-permanently'.
 
-For a temporary highlight use `pulsar-highlight-line-temporarily' and
+For a temporary highlight use `pulsar-highlight-temporarily' and
 related."
-  (interactive
-   (list
-    (if (region-active-p)
-        (cons (region-beginning) (region-end))
-      (cons (line-beginning-position) (line-end-position)))))
+  (interactive (list (pulsar--get-line-or-region-boundaries)))
   (pcase-let* ((`(,beg . ,end) locus)
                (overlay (make-overlay beg end)))
     (overlay-put overlay 'face pulsar-highlight-face)
@@ -591,7 +491,7 @@ Set a permanent highlight with `pulsar-highlight-permanently'."
      ((region-active-p)
       (cons (region-beginning) (region-end)))
      (t
-      (cons (line-beginning-position) (line-end-position))))))
+      (pulsar--get-line-boundaries)))))
   (if-let* ((overlays (pulsar--permanent-p locus)))
       (dolist (overlay overlays) (delete-overlay overlay))
     (user-error "No Pulsar permanent highlights found")))
@@ -610,10 +510,44 @@ line."
      ((region-active-p)
       (cons (region-beginning) (region-end)))
      (t
-      (cons (line-beginning-position) (line-end-position))))))
+      (pulsar--get-line-boundaries)))))
   (if-let* ((overlays (pulsar--permanent-p locus)))
       (dolist (overlay overlays) (delete-overlay overlay))
     (pulsar-highlight-permanently locus)))
+
+;;;;; Convenience functions
+
+(define-obsolete-function-alias
+  'pulsar-pulse-with-face
+  'pulsar-define-pulse-with-face
+  "1.0.0")
+
+;;;###autoload
+(defmacro pulsar-define-pulse-with-face (face)
+  "Produce function to pulse the current line with FACE.
+If FACE starts with the `pulsar-' prefix, remove it and keep only
+the remaining text.  The assumption is that something like
+`pulsar-red' will be convered to `red', thus deriving a function
+named `pulsar-pulse-line-red'.  Any other FACE is taken as-is."
+  (declare (indent function))
+  (let* ((face-string (symbol-name face))
+         (face-name (if (string-prefix-p "pulsar-" face-string)
+                        (replace-regexp-in-string "pulsar-" "" face-string)
+                      face-string)))
+    `(defun ,(intern (format "pulsar-pulse-line-%s" face-name)) ()
+       ,(format "Like `pulsar-pulse-line' but uses the `%s' face.
+The idea with this is to run it in special hooks or contexts
+where you need a different color than what Pulsar normally
+uses (per the user option `pulsar-face')" face)
+       (interactive)
+       (pulsar--create-pulse (pulsar--get-line-boundaries) ',face))))
+
+(pulsar-define-pulse-with-face pulsar-red)
+(pulsar-define-pulse-with-face pulsar-green)
+(pulsar-define-pulse-with-face pulsar-yellow)
+(pulsar-define-pulse-with-face pulsar-blue)
+(pulsar-define-pulse-with-face pulsar-magenta)
+(pulsar-define-pulse-with-face pulsar-cyan)
 
 ;;;; Mode setup
 
@@ -627,12 +561,12 @@ Also check `pulsar-global-mode'."
       (progn
         (when pulsar-resolve-pulse-function-aliases
           (pulsar-resolve-function-aliases))
-        (add-hook 'post-command-hook #'pulsar--post-command-pulse nil 'local)
+        (add-hook 'post-command-hook #'pulsar-post-command-pulse nil 'local)
         (add-hook 'after-change-functions #'pulsar--after-change-function nil 'local)
         (when pulsar-pulse-on-window-change
           (add-hook 'window-buffer-change-functions #'pulsar--pulse-on-window-change nil 'local)
           (add-hook 'window-selection-change-functions #'pulsar--pulse-on-window-change nil 'local)))
-    (remove-hook 'post-command-hook #'pulsar--post-command-pulse 'local)
+    (remove-hook 'post-command-hook #'pulsar-post-command-pulse 'local)
     (remove-hook 'after-change-functions #'pulsar--after-change-function 'local)
     (remove-hook 'window-buffer-change-functions #'pulsar--pulse-on-window-change 'local)
     (remove-hook 'window-selection-change-functions #'pulsar--pulse-on-window-change 'local)))
@@ -659,7 +593,7 @@ Also check `pulsar-global-mode'."
              ;; pulsar-pulse-functions are in effect.
              (not (memq this-command pulsar-pulse-functions))
              (not (memq real-this-command pulsar-pulse-functions)))
-    (pulsar--pulse nil pulsar-window-change-face)))
+    (pulsar--create-pulse (pulsar--get-line-boundaries) pulsar-window-change-face)))
 
 (defvar-local pulsar--pulse-region-changes nil)
 
@@ -679,28 +613,29 @@ Changes are defined by BEG, END, LEN:
       (setq end (1+ beg)))
     (push (cons (copy-marker beg) (copy-marker end)) pulsar--pulse-region-changes)))
 
-(defun pulsar--post-command-pulse ()
+(defun pulsar-post-command-pulse ()
   "Pulse current line, accumulated edits, or selected region."
-  (when pulsar-mode
-    (cond
-     ((or (memq this-command pulsar-pulse-functions)
-          (memq real-this-command pulsar-pulse-functions))
-      (pulsar-pulse-line))
-     ;; Extract the outer limits of the affected region from
-     ;; accumulated changes. NOTE: Non-contiguous regions such as
-     ;; rectangles will pulse their contiguous bounds.
-     (pulsar--pulse-region-changes
-      (let ((beg (apply #'min (mapcar #'car pulsar--pulse-region-changes)))
-            (end (apply #'max (mapcar #'cdr pulsar--pulse-region-changes))))
-        (setq pulsar--pulse-region-changes nil)
-        (pulsar--pulse nil pulsar-region-change-face beg end)))
-     ;; Pulse the selected region for commands that did not cause
-     ;; buffer changes; e.g., kill-ring-save.
-     ((or (memq this-command pulsar-pulse-region-functions)
-          (memq real-this-command pulsar-pulse-functions))
-      (pulsar-pulse-region)))))
-
-(make-obsolete 'pulsar-setup nil "0.3.0")
+  (cond
+   ((or (memq this-command pulsar-pulse-functions)
+        (memq real-this-command pulsar-pulse-functions))
+    (pulsar--create-pulse (pulsar--get-line-boundaries) pulsar-face))
+   ;; Extract the outer limits of the affected region from
+   ;; accumulated changes. NOTE: Non-contiguous regions such as
+   ;; rectangles will pulse their contiguous bounds.
+   (pulsar--pulse-region-changes
+    (let ((beg (apply #'min (mapcar #'car pulsar--pulse-region-changes)))
+          (end (apply #'max (mapcar #'cdr pulsar--pulse-region-changes))))
+      (setq pulsar--pulse-region-changes nil)
+      (pulsar--create-pulse
+       (if (eq beg end)
+           (cons beg (+ beg 1))
+         (cons beg end))
+       pulsar-region-change-face)))
+   ;; Pulse the selected region for commands that did not cause
+   ;; buffer changes; e.g., kill-ring-save.
+   ((or (memq this-command pulsar-pulse-region-functions)
+        (memq real-this-command pulsar-pulse-region-functions))
+    (pulsar--create-pulse (pulsar--get-line-or-region-boundaries) pulsar-region-face))))
 
 ;; TODO 2024-11-26: Deprecate this at some point to prefer Emacs core.
 (defun pulsar--function-alias-p (func &optional _noerror)
@@ -754,13 +689,13 @@ You may also call this manually in your configuration after setting
   "Reposition point at the top of the window and pulse line."
   (interactive)
   (recenter 0)
-  (pulsar-pulse-line))
+  (call-interactively 'pulsar-highlight-pulse))
 
 (defun pulsar-recenter-center ()
   "Reposition point at the center of the window and pulse line."
   (interactive)
   (recenter nil)
-  (pulsar-pulse-line))
+  (call-interactively 'pulsar-highlight-pulse))
 
 (defalias 'pulsar-recenter-middle 'pulsar-recenter-center
   "Alias for `pulsar-recenter-center'.")

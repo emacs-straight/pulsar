@@ -1,4 +1,4 @@
-This is docWTHQTR.info, produced by makeinfo version 6.8 from
+This is dociJ5H13.info, produced by makeinfo version 6.8 from
 pulsar.texi.
 
 Copyright (C) 2022-2025 Free Software Foundation, Inc.
@@ -16,14 +16,14 @@ Copyright (C) 2022-2025 Free Software Foundation, Inc.
 
 INFO-DIR-SECTION Emacs misc features
 START-INFO-DIR-ENTRY
-* Pulsar: (pulsar).     Pulse highlight line on demand or after running select functions.
+* Pulsar: (pulsar).     Highlight line automatically after some change or on demand.
 END-INFO-DIR-ENTRY
 
 
-File: docWTHQTR.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: dociJ5H13.info,  Node: Top,  Next: Installation,  Up: (dir)
 
-pulsar.el: Pulse highlight line on demand or after running select functions
-***************************************************************************
+pulsar.el: Highlight line automatically after some change or on demand
+**********************************************************************
 
 Copyright (C) 2022-2025 Free Software Foundation, Inc.
 
@@ -60,19 +60,22 @@ as such.
 
 * Menu:
 
-* Overview::
 * Installation::
 * Sample configuration::
+* Overview::
+* Style of a pulse effect::
+* Temporary static highlights::
+* Permanent static highlights::
+* More ways to create automatic pulse effects::
+* Resolve function aliases::
+* Omit hidden buffers::
+* Convenience functions::
 * Integration with other packages::
 * Acknowledgements::
 * GNU Free Documentation License::
 * Indices::
 
 — The Detailed Node Listing —
-
-Overview
-
-* Convenience functions::
 
 Installation
 
@@ -92,132 +95,9 @@ Indices
 
 
 
-File: docWTHQTR.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: dociJ5H13.info,  Node: Installation,  Next: Sample configuration,  Prev: Top,  Up: Top
 
-1 Overview
-**********
-
-This is a small package that temporarily highlights the current line
-after a given function is invoked.  The affected functions are defined
-in the user option ‘pulsar-pulse-functions’ and the effect takes place
-when either ‘pulsar-mode’ (buffer-local) or ‘pulsar-global-mode’ is
-enabled.
-
-   By default, Pulsar does not try to behave the same way for a
-function’s aliases.  If those are not added explicitly to the
-‘pulsar-pulse-functions’, they will not have a pulse effect.  However,
-the user option ‘pulsar-resolve-pulse-function-aliases’ can be set to a
-non-nil value to change this behaviour, meaning that Pulsar will cover a
-function’s aliases even if those are not explicitly added to the
-‘pulsar-pulse-functions’.
-
-   Pulsar can also produce an effect over a specific region.  This is
-useful to, for example, highlight the area covered by text that is
-pasted in the buffer.  The user option ‘pulsar-pulse-region-functions’
-defines a list of functions that are region-aware in this regard.  The
-default value covers copyring, pasting, and undoing/redoing.
-
-   The pulse effect also happens whenever there is a change to the
-window layout.  This includes the selection, addition, deletion, resize
-of windows in a frame.  Users who do not want this to happen can set the
-user option ‘pulsar-pulse-on-window-change’ to a nil value.
-
-   The overall duration of the highlight is determined by a combination
-of ‘pulsar-delay’ and ‘pulsar-iterations’.  The latter determines the
-number of blinks in a pulse, while the former sets their delay in
-seconds before they fade out.  The applicable face is specified in
-‘pulsar-face’.
-
-   To disable the pulse but keep the temporary highlight, set the user
-option ‘pulsar-pulse’ to nil.  The current line will remain highlighted
-until another command is invoked.
-
-   The user option ‘pulsar-inhibit-hidden-buffers’ controls whether
-Pulsar is active in hidden buffers.  These are buffers that users
-normally do not interact with and are not displayed in the interface of
-the various buffer-switching commands.  When this user option is nil,
-‘pulsar-mode’ will work in those buffers as well.
-
-   To highlight the current line on demand, use the ‘pulsar-pulse-line’
-command.  When ‘pulsar-pulse’ is non-nil (the default), its highlight
-will pulse before fading away.  Whereas the
-‘pulsar-highlight-line-temporarily’ command never pulses the line: the
-highlight stays in place and is static (as if ‘pulsar-pulse’ is ‘nil’)
-and is removed when the point moves.
-
-   The command ‘pulsar-pulse-region’ pulses the active region.  The
-effect of the pulse is controlled by the aforementioned user options,
-namely, ‘pulsar-delay’, ‘pulsar-iterations’, ‘pulsar-face’.
-
-   For temporary static highlights, a do-what-I-mean command is also on
-offer: ‘pulsar-highlight-temporarily-dwim’.  It temporarily highlights
-the current line line like ‘pulsar-highlight-line-temporarily~’.  If the
-region is active, it applies its effect there.  The region may also be a
-rectangle (internally they differ from ordinary regions).
-
-   The command ‘pulsar-highlight-permanently’ adds a permanent static
-highlight to the current line.  The effect stays in place even after the
-point moves.  When the region is active, the highlight is applied from
-the beginning to the end of the region.  Otherwise the highlight is
-applied to the current line.  [ The command
-‘pulsar-highlight-permanently’ is part of 1.3.0-dev.  ]
-
-   The command ‘pulsar-highlight-permanently-remove’ removes permanent
-static highlights from the active region or current line.  This command
-operates on the entire buffer when it is called with a universal prefix
-argument (‘C-u’ by default).  [ The command
-‘pulsar-highlight-permanently-remove’ is part of 1.3.0-dev.  ]
-
-   The command ‘pulsar-highlight-permanently-dwim’ adds a permanent
-static highlight if there is none or removes it if there is one.  It
-operates on the currently active region or line at point.  [ The command
-‘pulsar-highlight-permanently-dwim’ is part of 1.3.0-dev.  ]
-
-   The user option ‘pulsar-highlight-face’ controls which face is used
-for static highlight (temporary or permanent).  By default, it is the
-same as the ‘pulsar-face’, which is for pulse effects, but can be
-assigned to a different face to help differentiate pulses from static
-highlights.
-
-   Why the name “pulsar”?  It sounds like “pulse” and is a recognisable
-word.  Though if you need a backronym, consider “Pulsar Unquestionably
-Luminates, Strictly Absent the Radiation”.
-
-* Menu:
-
-* Convenience functions::
-
-
-File: docWTHQTR.info,  Node: Convenience functions,  Up: Overview
-
-1.1 Convenience functions
-=========================
-
-Depending on the user’s workflow, there may be a need for differently
-colored pulses.  These are meant to provide an ad-hoc deviation from the
-standard style of the command ‘pulsar-pulse-line’ (which is governed by
-the user option ‘pulsar-face’).  Pulsar thus provides the following for
-the user’s convenience:
-
-   • ‘pulsar-pulse-line-red’
-
-   • ‘pulsar-pulse-line-green’
-
-   • ‘pulsar-pulse-line-yellow’
-
-   • ‘pulsar-pulse-line-blue’
-
-   • ‘pulsar-pulse-line-magenta’
-
-   • ‘pulsar-pulse-line-cyan’
-
-   These can be called with ‘M-x’, assigned to a hook and/or key
-binding, or be incorporated in custom functions.
-
-
-File: docWTHQTR.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
-
-2 Installation
+1 Installation
 **************
 
 * Menu:
@@ -226,9 +106,9 @@ File: docWTHQTR.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: docWTHQTR.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: dociJ5H13.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
-2.1 GNU ELPA package
+1.1 GNU ELPA package
 ====================
 
 The package is available as ‘pulsar’.  Simply do:
@@ -245,9 +125,9 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: docWTHQTR.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: dociJ5H13.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
-2.2 Manual installation
+1.2 Manual installation
 =======================
 
 Assuming your Emacs files are found in ‘~/.emacs.d/’, execute the
@@ -272,45 +152,27 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: docWTHQTR.info,  Node: Sample configuration,  Next: Integration with other packages,  Prev: Installation,  Up: Top
+File: dociJ5H13.info,  Node: Sample configuration,  Next: Overview,  Prev: Installation,  Up: Top
 
-3 Sample configuration
+2 Sample configuration
 **********************
 
-Remember to read the doc string of each of these variables.
+Remember to read the doc string of each of these variables or functions.
 
-     (require 'pulsar)
-
-     ;; Check the default value of `pulsar-pulse-functions'.  That is where
-     ;; you add more commands that should cause a pulse after they are
-     ;; invoked
-
-     (setq pulsar-pulse t)
-     (setq pulsar-delay 0.055)
-     (setq pulsar-iterations 10)
-     (setq pulsar-face 'pulsar-magenta)
-     (setq pulsar-highlight-face 'pulsar-yellow)
-
-     (pulsar-global-mode 1)
-
-     ;; OR use the local mode for select mode hooks
-
-     (dolist (hook '(org-mode-hook emacs-lisp-mode-hook))
-       (add-hook hook #'pulsar-mode))
-
-     ;; pulsar does not define any key bindings.  This is just a sample that
-     ;; respects the key binding conventions.  Evaluate:
-     ;;
-     ;;     (info "(elisp) Key Binding Conventions")
-     ;;
-     ;; The author uses C-x l for `pulsar-pulse-line' and C-x L for
-     ;; `pulsar-highlight-line'.
-     ;;
-     ;; You can replace `pulsar-highlight-line' with the command
-     ;; `pulsar-highlight-dwim'.
-     (let ((map global-map))
-       (define-key map (kbd "C-c h p") #'pulsar-pulse-line)
-       (define-key map (kbd "C-c h h") #'pulsar-highlight-line))
+     (use-package pulsar
+       :ensure t
+       :bind
+       ( :map global-map
+         ("C-x l" . pulsar-pulse-line) ; overrides `count-lines-page'
+         ("C-x L" . pulsar-highlight-permanently-dwim)) ; or use `pulsar-highlight-temporarily-dwim'
+       :init
+       (pulsar-global-mode 1)
+       :config
+       (setq pulsar-delay 0.055)
+       (setq pulsar-iterations 5)
+       (setq pulsar-face 'pulsar-green)
+       (setq pulsar-region-face 'pulsar-yellow)
+       (setq pulsar-highlight-face 'pulsar-magenta))
 
 * Menu:
 
@@ -318,9 +180,9 @@ Remember to read the doc string of each of these variables.
 * Use pulsar in the minibuffer::
 
 
-File: docWTHQTR.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
+File: dociJ5H13.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
 
-3.1 Use pulsar with next-error
+2.1 Use pulsar with next-error
 ==============================
 
 By default, the ‘n’ and ‘p’ keys in Emacs’ compilation buffers (e.g.
@@ -333,9 +195,9 @@ Pulsar-level solution that “just works”:
      (add-hook 'next-error-hook #'pulsar-pulse-line)
 
 
-File: docWTHQTR.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
+File: dociJ5H13.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
 
-3.2 Use pulsar in the minibuffer
+2.2 Use pulsar in the minibuffer
 ================================
 
 Due to how the minibuffer works, the user cannot rely on the user option
@@ -355,10 +217,178 @@ applied by default.  For example:
      (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
 
 
-File: docWTHQTR.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Sample configuration,  Up: Top
+File: dociJ5H13.info,  Node: Overview,  Next: Style of a pulse effect,  Prev: Sample configuration,  Up: Top
 
-4 Integration with other packages
-*********************************
+3 Overview
+**********
+
+This is a small Emacs package that automatically highlights the current
+line after certain functions are invoked.  It can also highlight a line
+or region on demand.  The idea is to make it easier to find where the
+point is, what was affected, and also to bring attention to something in
+a buffer.
+
+   When ‘pulsar-mode’ is enabled in the current buffer, a pulsing
+highlight effect will be produced after any command listed in the user
+option ‘pulsar-pulse-functions’.  The ‘pulsar-global-mode’ has the same
+effect in all buffers (*note More ways to create automatic pulse
+effects::).
+
+
+File: dociJ5H13.info,  Node: Style of a pulse effect,  Next: Temporary static highlights,  Prev: Overview,  Up: Top
+
+4 Style of a pulse effect
+*************************
+
+The pulse’s duration is influenced by the user option ‘pulsar-delay’.
+The greater the value, the longer the highlight will stay on display.
+The user option ‘pulsar-iterations’ controls through how many steps does
+the produced pulse colour go through before it fades away.
+
+   All pulse effects are done with the user option ‘pulsar-face’.  Any
+face with a background attribute can be used for this purpose.  Pulsar
+defines several such faces, namely, ‘pulsar-generic’ (the default
+value), ‘pulsar-red’, ‘pulsar-green’, ‘pulsar-yellow’, ‘pulsar-blue’,
+‘pulsar-magenta’, ‘pulsar-cyan’.
+
+
+File: dociJ5H13.info,  Node: Temporary static highlights,  Next: Permanent static highlights,  Prev: Style of a pulse effect,  Up: Top
+
+5 Temporary static highlights
+*****************************
+
+[ Revised as part of 1.3.0-dev.  The ‘pulsar-highlight-temporarily’
+supersedes ‘pulsar-highlight-line’ and ‘pulsar-highlight-dwim’.  ]
+
+   The command ‘pulsar-highlight-pulse’ will produce a pulse effect on
+demand.  This is independent of ‘pulsar-mode’ and all the conditions for
+automatically creating a pulse.
+
+   Unlike pulses which disappear after some time, it is possible to
+create temporary static highlights that stay in place until another
+command is performed.  The ‘pulsar-highlight-temporarily’ will produce
+such a static highlight for the active region or current line.
+
+   The user option ‘pulsar-highlight-face’ controls which face is used
+for static highlight (temporary or permanent).  By default, it is the
+same as the ‘pulsar-face’, which is for pulse effects, but can be
+assigned to a different face to help differentiate pulses from static
+highlights (*note Style of a pulse effect::).
+
+
+File: dociJ5H13.info,  Node: Permanent static highlights,  Next: More ways to create automatic pulse effects,  Prev: Temporary static highlights,  Up: Top
+
+6 Permanent static highlights
+*****************************
+
+[ All the permanent highlights are part of 1.3.0-dev.  ]
+
+   The command ‘pulsar-highlight-permanently’ adds a permanent static
+highlight to the current line.  The effect stays in place even after the
+point moves.  When the region is active, the highlight is applied from
+the beginning to the end of the region.  Otherwise the highlight is
+applied to the current line.
+
+   The command ‘pulsar-highlight-permanently-remove’ removes permanent
+static highlights from the active region or current line.  This command
+operates on the entire buffer when it is called with a universal prefix
+argument (‘C-u’ by default).
+
+   The command ‘pulsar-highlight-permanently-dwim’ adds a permanent
+static highlight if there is none or removes it if there is one.  It
+operates on the currently active region or line at point.
+
+   Permanent static highlights are rendered with the face specified in
+the user option ‘pulsar-highlight-face’.  It is the same used for their
+temporary counterparts (*note Temporary static highlights::).
+
+
+File: dociJ5H13.info,  Node: More ways to create automatic pulse effects,  Next: Resolve function aliases,  Prev: Permanent static highlights,  Up: Top
+
+7 More ways to create automatic pulse effects
+*********************************************
+
+The ‘pulsar-mode’ and ‘pulsar-global-mode’ perform an automatic pulse
+after a function in the ‘pulsar-pulse-functions’ is called (*note
+Overview::).  They can do the same in more cases.
+
+Region-related changes
+     Pulsar can also produce an effect over a specific region.  This is
+     useful to, for example, highlight the area covered by text that is
+     pasted in the buffer.  The user option
+     ‘pulsar-pulse-region-functions’ defines a list of functions that
+     are region-aware in this regard.  The default value covers
+     copyring, pasting, and undoing/redoing.
+Window-related changes
+     The pulse effect can be created whenever there is a change to the
+     window layout.  This includes the selection, addition, deletion,
+     orr resize of windows in a frame.  Users can opt in to this feature
+     by setting ‘pulsar-pulse-on-window-change’ to a non-‘nil’ value.
+
+   The user option ‘pulsar-region-face’ sets the face that is used for
+region-related pulses.  By default, it is the same as the ‘pulsar-face’
+(*note Style of a pulse effect::).
+
+
+File: dociJ5H13.info,  Node: Resolve function aliases,  Next: Omit hidden buffers,  Prev: More ways to create automatic pulse effects,  Up: Top
+
+8 Resolve function aliases
+**************************
+
+By default, Pulsar does not try to resolve and act on a function’s
+aliases (*note Overview::).  It only works with the exact symbols it is
+given.  If those aliases are not added to the ‘pulsar-pulse-functions’
+and/or ‘pulsar-pulse-region-functions’, they will not produce a pulse
+effect (*note More ways to create automatic pulse effects::).
+
+   The user option ‘pulsar-resolve-pulse-function-aliases’ can be set to
+a non-‘nil’ value to make Pulsar check for the aliases of all the
+function symbols it is aware of and act on them accordingly.
+
+
+File: dociJ5H13.info,  Node: Omit hidden buffers,  Next: Convenience functions,  Prev: Resolve function aliases,  Up: Top
+
+9 Omit hidden buffers
+*********************
+
+The user option ‘pulsar-inhibit-hidden-buffers’ controls whether Pulsar
+is active in hidden buffers.  These are buffers that users normally do
+not interact with and are not displayed in the interface of the various
+buffer-switching commands.  When this user option is set to ‘nil’,
+Pulsar will work in those buffers as well (*note Overview::).
+
+
+File: dociJ5H13.info,  Node: Convenience functions,  Next: Integration with other packages,  Prev: Omit hidden buffers,  Up: Top
+
+10 Convenience functions
+************************
+
+Depending on the user’s workflow, there may be a need for differently
+colored pulses.  These are meant to provide an ad-hoc deviation from the
+standard style of the command ‘pulsar-pulse-line’ (which is governed by
+the user option ‘pulsar-face’).  Pulsar thus provides the following for
+the user’s convenience:
+
+   • ‘pulsar-pulse-line-red’
+
+   • ‘pulsar-pulse-line-green’
+
+   • ‘pulsar-pulse-line-yellow’
+
+   • ‘pulsar-pulse-line-blue’
+
+   • ‘pulsar-pulse-line-magenta’
+
+   • ‘pulsar-pulse-line-cyan’
+
+   These can be called with ‘M-x’, assigned to a hook and/or key
+binding, or be incorporated in custom functions.
+
+
+File: dociJ5H13.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Convenience functions,  Up: Top
+
+11 Integration with other packages
+**********************************
 
 Beside ‘pulsar-pulse-line’, Pulsar defines a few functions that can be
 added to hooks that are provided by other packages.
@@ -382,10 +412,10 @@ the aforementioned recentering functions.
      (add-hook 'imenu-after-jump-hook #'pulsar-reveal-entry)
 
 
-File: docWTHQTR.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
+File: dociJ5H13.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
 
-5 Acknowledgements
-******************
+12 Acknowledgements
+*******************
 
 Pulsar is meant to be a collective effort.  Every bit of help matters.
 
@@ -403,7 +433,7 @@ Ideas and user feedback
      and users djl, kb.
 
 
-File: docWTHQTR.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: dociJ5H13.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -885,7 +915,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: docWTHQTR.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: dociJ5H13.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -897,7 +927,7 @@ B Indices
 * Concept index::
 
 
-File: docWTHQTR.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: dociJ5H13.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -905,14 +935,18 @@ B.1 Function index
  [index ]
 * Menu:
 
-* pulsar-global-mode:                    Overview.             (line  6)
-* pulsar-highlight-line-temporarily:     Overview.             (line 47)
-* pulsar-highlight-permanently:          Overview.             (line 64)
-* pulsar-highlight-permanently-dwim:     Overview.             (line 77)
-* pulsar-highlight-permanently-remove:   Overview.             (line 71)
-* pulsar-highlight-temporarily-dwim:     Overview.             (line 58)
-* pulsar-mode:                           Overview.             (line  6)
-* pulsar-pulse-line:                     Overview.             (line 47)
+* pulsar-global-mode:                    Overview.             (line 12)
+* pulsar-highlight-permanently:          Permanent static highlights.
+                                                               (line  8)
+* pulsar-highlight-permanently-dwim:     Permanent static highlights.
+                                                               (line 19)
+* pulsar-highlight-permanently-remove:   Permanent static highlights.
+                                                               (line 14)
+* pulsar-highlight-pulse:                Temporary static highlights.
+                                                               (line  9)
+* pulsar-highlight-temporarily:          Temporary static highlights.
+                                                               (line 13)
+* pulsar-mode:                           Overview.             (line 12)
 * pulsar-pulse-line-blue:                Convenience functions.
                                                                (line 18)
 * pulsar-pulse-line-cyan:                Convenience functions.
@@ -925,9 +959,6 @@ B.1 Function index
                                                                (line 12)
 * pulsar-pulse-line-yellow:              Convenience functions.
                                                                (line 16)
-* pulsar-pulse-on-window-change:         Overview.             (line 26)
-* pulsar-pulse-region:                   Overview.             (line 54)
-* pulsar-pulse-region-functions:         Overview.             (line 20)
 * pulsar-recenter-center:                Integration with other packages.
                                                                (line  9)
 * pulsar-recenter-middle:                Integration with other packages.
@@ -938,7 +969,7 @@ B.1 Function index
                                                                (line 13)
 
 
-File: docWTHQTR.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: dociJ5H13.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -946,17 +977,41 @@ B.2 Variable index
  [index ]
 * Menu:
 
-* pulsar-delay:                          Overview.             (line 31)
-* pulsar-face:                           Overview.             (line 31)
-* pulsar-highlight-face:                 Overview.             (line 82)
-* pulsar-inhibit-hidden-buffers:         Overview.             (line 41)
-* pulsar-iterations:                     Overview.             (line 31)
-* pulsar-pulse:                          Overview.             (line 37)
-* pulsar-resolve-pulse-function-aliases: Overview.             (line 12)
-* pulse-pulse-functions:                 Overview.             (line  6)
+* pulsar-blue:                           Style of a pulse effect.
+                                                               (line 11)
+* pulsar-cyan:                           Style of a pulse effect.
+                                                               (line 11)
+* pulsar-delay:                          Style of a pulse effect.
+                                                               (line  6)
+* pulsar-face:                           Style of a pulse effect.
+                                                               (line 11)
+* pulsar-generic:                        Style of a pulse effect.
+                                                               (line 11)
+* pulsar-green:                          Style of a pulse effect.
+                                                               (line 11)
+* pulsar-highlight-face:                 Temporary static highlights.
+                                                               (line 18)
+* pulsar-inhibit-hidden-buffers:         Omit hidden buffers.  (line  6)
+* pulsar-iterations:                     Style of a pulse effect.
+                                                               (line  6)
+* pulsar-magenta:                        Style of a pulse effect.
+                                                               (line 11)
+* pulsar-pulse-functions:                Overview.             (line 12)
+* pulsar-pulse-on-window-change:         More ways to create automatic pulse effects.
+                                                               (line 17)
+* pulsar-pulse-region-functions:         More ways to create automatic pulse effects.
+                                                               (line 10)
+* pulsar-red:                            Style of a pulse effect.
+                                                               (line 11)
+* pulsar-region-face:                    More ways to create automatic pulse effects.
+                                                               (line 23)
+* pulsar-resolve-pulse-function-aliases: Resolve function aliases.
+                                                               (line 12)
+* pulsar-yellow:                         Style of a pulse effect.
+                                                               (line 11)
 
 
-File: docWTHQTR.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: dociJ5H13.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -973,22 +1028,28 @@ B.3 Concept index
 
 
 Tag Table:
-Node: Top872
-Node: Overview3036
-Node: Convenience functions7832
-Node: Installation8624
-Node: GNU ELPA package8811
-Node: Manual installation9372
-Node: Sample configuration10141
-Node: Use pulsar with next-error11560
-Node: Use pulsar in the minibuffer12215
-Node: Integration with other packages13084
-Node: Acknowledgements14133
-Node: GNU Free Documentation License14825
-Node: Indices40186
-Node: Function index40362
-Node: Variable index42720
-Node: Concept index43471
+Node: Top867
+Node: Installation3207
+Node: GNU ELPA package3389
+Node: Manual installation3950
+Node: Sample configuration4719
+Node: Use pulsar with next-error5533
+Node: Use pulsar in the minibuffer6188
+Node: Overview7057
+Node: Style of a pulse effect7789
+Node: Temporary static highlights8588
+Node: Permanent static highlights9727
+Node: More ways to create automatic pulse effects10983
+Node: Resolve function aliases12327
+Node: Omit hidden buffers13091
+Node: Convenience functions13614
+Node: Integration with other packages14467
+Node: Acknowledgements15519
+Node: GNU Free Documentation License16213
+Node: Indices41574
+Node: Function index41750
+Node: Variable index44166
+Node: Concept index46629
 
 End Tag Table
 
