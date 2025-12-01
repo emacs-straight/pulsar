@@ -11,11 +11,11 @@ This manual, written by Protesilaos Stavrou, describes the customization
 options for `pulsar' (or `pulsar.el'), and provides every other piece of
 information pertinent to it.
 
-The documentation furnished herein corresponds to stable version 1.2.0,
-released on 2024-12-12.  Any reference to a newer feature which does not
+The documentation furnished herein corresponds to stable version 1.3.0,
+released on 2025-11-30.  Any reference to a newer feature which does not
 yet form part of the latest tagged commit, is explicitly marked as such.
 
-Current development target is 1.3.0-dev.
+Current development target is 1.4.0-dev.
 
 ⁃ Package name (GNU ELPA): `pulsar'
 ⁃ Official manual: <https://protesilaos.com/emacs/pulsar>
@@ -73,9 +73,6 @@ Table of Contents
 
 2 Installation
 ══════════════
-
-
-
 
 2.1 GNU ELPA package
 ────────────────────
@@ -228,9 +225,6 @@ Table of Contents
 6 Temporary static highlights
 ═════════════════════════════
 
-  [ Revised as part of 1.3.0-dev. The `pulsar-highlight-temporarily'
-    supersedes `pulsar-highlight-line' and `pulsar-highlight-dwim'. ]
-
   The command `pulsar-highlight-pulse' will produce a pulse effect on
   demand. This is independent of `pulsar-mode' and all the conditions
   for automatically creating a pulse.
@@ -252,8 +246,6 @@ Table of Contents
 
 7 Permanent static highlights
 ═════════════════════════════
-
-  [ All the permanent highlights are part of 1.3.0-dev. ]
 
   The command `pulsar-highlight-permanently' adds a permanent static
   highlight to the current line. The effect stays in place even after
