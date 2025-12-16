@@ -1,4 +1,4 @@
-This is docgU32c8.info, produced by makeinfo version 7.1.1 from
+This is docruHba4.info, produced by makeinfo version 7.1.1 from
 pulsar.texi.
 
 Copyright (C) 2022-2025 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docgU32c8.info,  Node: Top,  Next: Installation,  Up: (dir)
+File: docruHba4.info,  Node: Top,  Next: Installation,  Up: (dir)
 
 pulsar.el: Highlight line automatically after some change or on demand
 **********************************************************************
@@ -95,7 +95,7 @@ Indices
 
 
 
-File: docgU32c8.info,  Node: Installation,  Next: Sample configuration,  Prev: Top,  Up: Top
+File: docruHba4.info,  Node: Installation,  Next: Sample configuration,  Prev: Top,  Up: Top
 
 1 Installation
 **************
@@ -106,7 +106,7 @@ File: docgU32c8.info,  Node: Installation,  Next: Sample configuration,  Prev: T
 * Manual installation::
 
 
-File: docgU32c8.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docruHba4.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 1.1 GNU ELPA package
 ====================
@@ -125,7 +125,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: docgU32c8.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docruHba4.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 1.2 Manual installation
 =======================
@@ -152,7 +152,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: docgU32c8.info,  Node: Sample configuration,  Next: Overview,  Prev: Installation,  Up: Top
+File: docruHba4.info,  Node: Sample configuration,  Next: Overview,  Prev: Installation,  Up: Top
 
 2 Sample configuration
 **********************
@@ -180,7 +180,7 @@ Remember to read the doc string of each of these variables or functions.
 * Use pulsar in the minibuffer::
 
 
-File: docgU32c8.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
+File: docruHba4.info,  Node: Use pulsar with next-error,  Next: Use pulsar in the minibuffer,  Up: Sample configuration
 
 2.1 Use pulsar with next-error
 ==============================
@@ -195,7 +195,7 @@ Pulsar-level solution that "just works":
      (add-hook 'next-error-hook #'pulsar-pulse-line)
 
 
-File: docgU32c8.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
+File: docruHba4.info,  Node: Use pulsar in the minibuffer,  Prev: Use pulsar with next-error,  Up: Sample configuration
 
 2.2 Use pulsar in the minibuffer
 ================================
@@ -217,7 +217,7 @@ applied by default.  For example:
      (add-hook 'minibuffer-setup-hook #'pulsar-pulse-line-blue)
 
 
-File: docgU32c8.info,  Node: Overview,  Next: Style of a pulse effect,  Prev: Sample configuration,  Up: Top
+File: docruHba4.info,  Node: Overview,  Next: Style of a pulse effect,  Prev: Sample configuration,  Up: Top
 
 3 Overview
 **********
@@ -235,7 +235,7 @@ effect in all buffers (*note More ways to create automatic pulse
 effects::).
 
 
-File: docgU32c8.info,  Node: Style of a pulse effect,  Next: Temporary static highlights,  Prev: Overview,  Up: Top
+File: docruHba4.info,  Node: Style of a pulse effect,  Next: Temporary static highlights,  Prev: Overview,  Up: Top
 
 4 Style of a pulse effect
 *************************
@@ -252,7 +252,7 @@ value), ‘pulsar-red’, ‘pulsar-green’, ‘pulsar-yellow’, ‘pulsar-blu
 ‘pulsar-magenta’, ‘pulsar-cyan’.
 
 
-File: docgU32c8.info,  Node: Temporary static highlights,  Next: Permanent static highlights,  Prev: Style of a pulse effect,  Up: Top
+File: docruHba4.info,  Node: Temporary static highlights,  Next: Permanent static highlights,  Prev: Style of a pulse effect,  Up: Top
 
 5 Temporary static highlights
 *****************************
@@ -273,7 +273,7 @@ assigned to a different face to help differentiate pulses from static
 highlights (*note Style of a pulse effect::).
 
 
-File: docgU32c8.info,  Node: Permanent static highlights,  Next: More ways to create automatic pulse effects,  Prev: Temporary static highlights,  Up: Top
+File: docruHba4.info,  Node: Permanent static highlights,  Next: More ways to create automatic pulse effects,  Prev: Temporary static highlights,  Up: Top
 
 6 Permanent static highlights
 *****************************
@@ -298,7 +298,7 @@ the user option ‘pulsar-highlight-face’.  It is the same used for their
 temporary counterparts (*note Temporary static highlights::).
 
 
-File: docgU32c8.info,  Node: More ways to create automatic pulse effects,  Next: Resolve function aliases,  Prev: Permanent static highlights,  Up: Top
+File: docruHba4.info,  Node: More ways to create automatic pulse effects,  Next: Resolve function aliases,  Prev: Permanent static highlights,  Up: Top
 
 7 More ways to create automatic pulse effects
 *********************************************
@@ -325,7 +325,7 @@ region-related pulses.  By default, it is the same as the ‘pulsar-face’
 (*note Style of a pulse effect::).
 
 
-File: docgU32c8.info,  Node: Resolve function aliases,  Next: Omit hidden buffers,  Prev: More ways to create automatic pulse effects,  Up: Top
+File: docruHba4.info,  Node: Resolve function aliases,  Next: Omit hidden buffers,  Prev: More ways to create automatic pulse effects,  Up: Top
 
 8 Resolve function aliases
 **************************
@@ -341,7 +341,7 @@ a non-‘nil’ value to make Pulsar check for the aliases of all the
 function symbols it is aware of and act on them accordingly.
 
 
-File: docgU32c8.info,  Node: Omit hidden buffers,  Next: Convenience functions,  Prev: Resolve function aliases,  Up: Top
+File: docruHba4.info,  Node: Omit hidden buffers,  Next: Convenience functions,  Prev: Resolve function aliases,  Up: Top
 
 9 Omit hidden buffers
 *********************
@@ -353,7 +353,7 @@ buffer-switching commands.  When this user option is set to ‘nil’,
 Pulsar will work in those buffers as well (*note Overview::).
 
 
-File: docgU32c8.info,  Node: Convenience functions,  Next: Integration with other packages,  Prev: Omit hidden buffers,  Up: Top
+File: docruHba4.info,  Node: Convenience functions,  Next: Integration with other packages,  Prev: Omit hidden buffers,  Up: Top
 
 10 Convenience functions
 ************************
@@ -380,7 +380,7 @@ the user's convenience:
 binding, or be incorporated in custom functions.
 
 
-File: docgU32c8.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Convenience functions,  Up: Top
+File: docruHba4.info,  Node: Integration with other packages,  Next: Acknowledgements,  Prev: Convenience functions,  Up: Top
 
 11 Integration with other packages
 **********************************
@@ -407,7 +407,7 @@ the aforementioned recentering functions.
      (add-hook 'imenu-after-jump-hook #'pulsar-reveal-entry)
 
 
-File: docgU32c8.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
+File: docruHba4.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Integration with other packages,  Up: Top
 
 12 Acknowledgements
 *******************
@@ -424,11 +424,12 @@ Contributions to the code or manual
 
 Ideas and user feedback
      Anwesh Gangula, Diego Alvarez, Duy Nguyen, Koloszár Gergely,
-     Matthias Meulien, Mark Barton, Petter Storvik, Ronny Randen, Rudolf
-     Adamkovič, Toon Claes, and users djl, kb.
+     Matthias Meulien, Mark Barton, Mehrad Mahmoudian, Nikolaos
+     Bezirgiannis, Petter Storvik, Ronny Randen, Rudolf Adamkovič, Toon
+     Claes, and users djl, kb.
 
 
-File: docgU32c8.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docruHba4.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -910,7 +911,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: docgU32c8.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docruHba4.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -922,7 +923,7 @@ B Indices
 * Concept index::
 
 
-File: docgU32c8.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docruHba4.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -964,7 +965,7 @@ B.1 Function index
                                                                (line 13)
 
 
-File: docgU32c8.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docruHba4.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -1006,7 +1007,7 @@ B.2 Variable index
                                                                (line 11)
 
 
-File: docgU32c8.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docruHba4.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -1040,11 +1041,11 @@ Node: Omit hidden buffers12867
 Node: Convenience functions13390
 Node: Integration with other packages14239
 Node: Acknowledgements15291
-Node: GNU Free Documentation License16004
-Node: Indices41164
-Node: Function index41340
-Node: Variable index43756
-Node: Concept index46219
+Node: GNU Free Documentation License16051
+Node: Indices41211
+Node: Function index41387
+Node: Variable index43803
+Node: Concept index46266
 
 End Tag Table
 
