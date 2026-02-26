@@ -423,8 +423,8 @@ Contributions to the code or manual
 Ideas and user feedback
      Anwesh Gangula, Diego Alvarez, Duy Nguyen, Koloszár Gergely,
      Matthias Meulien, Mark Barton, Mehrad Mahmoudian, Nikolaos
-     Bezirgiannis, Petter Storvik, Ronny Randen, Rudolf Adamkovič, Toon
-     Claes, and users djl, hammerandtongs, kb.
+     Bezirgiannis, Petter Storvik, Ronny Randen, Rudolf Adamkovič,
+     Sébastien Delafond, Toon Claes, and users djl, hammerandtongs, kb.
 
 
 File: pulsar.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
@@ -1038,11 +1038,11 @@ Node: Omit hidden buffers12822
 Node: Convenience functions13342
 Node: Integration with other packages14188
 Node: Acknowledgements15237
-Node: GNU Free Documentation License16010
-Node: Indices41167
-Node: Function index41340
-Node: Variable index43753
-Node: Concept index46213
+Node: GNU Free Documentation License16031
+Node: Indices41188
+Node: Function index41361
+Node: Variable index43774
+Node: Concept index46234
 
 End Tag Table
 
